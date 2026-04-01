@@ -1,3 +1,4 @@
+import SwiftData
 import SwiftUI
 
 // 최소한의 앱 진입점. Phase 2에서 온보딩 분기 + TabView로 교체 예정.
@@ -7,5 +8,6 @@ struct MofitApp: App {
         WindowGroup {
             Text("Mofit")
         }
+        .modelContainer(for: [UserProfile.self, WorkoutSession.self, CoachingFeedback.self])
     }
 }
