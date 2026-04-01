@@ -9,7 +9,9 @@
 /* Begin PBXBuildFile section */
 		16FCD4175557A3FA0112085B /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9AEF1F00E6ACCA4EDBAD2B /* UserProfile.swift */; };
 		27DAFE208404F65266CCB764 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6926B00BCAFB4148B2CE7F /* Secrets.swift */; };
+		28BEC92F8D3C38F69BF8FCB4 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EEF557BD61F940108232A66 /* OnboardingView.swift */; };
 		42706E3EA4FD131DFF90A0B5 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FEB08F60AF059876333C077 /* SwiftUI.framework */; };
+		62E6A2F7189D49E9C730510F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B469CE7D4368EF6D89E602 /* ContentView.swift */; };
 		7BCFF0611D7245687E155CB3 /* CoachingFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546B0402F236C3DBE3C24E27 /* CoachingFeedback.swift */; };
 		7D5D3538BE4DC07BF4502F22 /* MofitApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 214EA30ADD81F450DEA7E3C9 /* MofitApp.swift */; };
 		96EFA1EBD9682AADCD21DD5D /* WorkoutSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C63EA4E638B27B2DADD3EA /* WorkoutSession.swift */; };
@@ -26,9 +28,11 @@
 		546B0402F236C3DBE3C24E27 /* CoachingFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachingFeedback.swift; sourceTree = "<group>"; };
 		692ADE0BD55D8B60B1BA9595 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		9D9AEF1F00E6ACCA4EDBAD2B /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
+		9EEF557BD61F940108232A66 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		9FEB08F60AF059876333C077 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		AAF026B1546FA243B6007EB4 /* Mofit.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Mofit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFD763970F385A2ACEF4378B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		D4B469CE7D4368EF6D89E602 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		EA6926B00BCAFB4148B2CE7F /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		FD6BDED53C67924AFC395DBF /* Vision.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Vision.framework; path = System/Library/Frameworks/Vision.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -54,6 +58,22 @@
 				692ADE0BD55D8B60B1BA9595 /* Theme.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		351FD4F0100707CD3D6F0E15 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				470960906A4F7A7B2176FFD9 /* Onboarding */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		470960906A4F7A7B2176FFD9 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				9EEF557BD61F940108232A66 /* OnboardingView.swift */,
+			);
+			path = Onboarding;
 			sourceTree = "<group>";
 		};
 		4F1209792DEF530D5589AEB1 /* Products */ = {
@@ -88,6 +108,7 @@
 				6BB4CC37EA51BEEE96594A03 /* Config */,
 				B83374148D92C502F3FE199F /* Models */,
 				010035ED61AD343EF4B7DE08 /* Utils */,
+				351FD4F0100707CD3D6F0E15 /* Views */,
 			);
 			path = Mofit;
 			sourceTree = "<group>";
@@ -116,16 +137,10 @@
 		C7467180B02E2EE58C7A495D /* App */ = {
 			isa = PBXGroup;
 			children = (
+				D4B469CE7D4368EF6D89E602 /* ContentView.swift */,
 				214EA30ADD81F450DEA7E3C9 /* MofitApp.swift */,
 			);
 			path = App;
-			sourceTree = "<group>";
-		};
-		"TEMP_E569F6CD-1655-43CA-9AEB-030932BD9F85" /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -185,7 +200,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				7BCFF0611D7245687E155CB3 /* CoachingFeedback.swift in Sources */,
+				62E6A2F7189D49E9C730510F /* ContentView.swift in Sources */,
 				7D5D3538BE4DC07BF4502F22 /* MofitApp.swift in Sources */,
+				28BEC92F8D3C38F69BF8FCB4 /* OnboardingView.swift in Sources */,
 				27DAFE208404F65266CCB764 /* Secrets.swift in Sources */,
 				DEAF30B7E4070A8E3EC79D3B /* Theme.swift in Sources */,
 				16FCD4175557A3FA0112085B /* UserProfile.swift in Sources */,
