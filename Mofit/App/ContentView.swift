@@ -3,10 +3,7 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         TabView {
-            Text("Home Tab")
-                .foregroundColor(Theme.textPrimary)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Theme.darkBackground)
+            HomeView()
                 .tabItem {
                     Image(systemName: "house.fill")
                     Text("홈")

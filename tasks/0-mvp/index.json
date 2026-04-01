@@ -29,7 +29,9 @@
     {
       "phase": 3,
       "name": "home-tab",
-      "status": "pending"
+      "status": "completed",
+      "started_at": "2026-04-01T21:49:37+0900",
+      "completed_at": "2026-04-01T21:52:25+0900"
     },
     {
       "phase": 4,
