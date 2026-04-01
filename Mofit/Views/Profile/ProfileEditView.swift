@@ -11,6 +11,9 @@ struct ProfileEditView: View {
     @State private var weightText = ""
     @State private var bodyType = "normal"
     @State private var goal = "bodyShape"
+    @State private var coachStyle = "warm"
+
+    @AppStorage("onboardingCompleted") private var onboardingCompleted = false
 
     @State private var showHeightWarning = false
     @State private var showWeightWarning = false
@@ -57,6 +60,7 @@ struct ProfileEditView: View {
                         weightSection
                         bodyTypeSection
                         goalSection
+                        coachStyleSection
                     }
                     .padding(.horizontal)
                     .padding(.top, 24)
@@ -65,7 +69,16 @@ struct ProfileEditView: View {
 
                 saveButton
                     .padding(.horizontal)
-                    .padding(.bottom, 16)
+                    .padding(.bottom, 8)
+
+                Button {
+                    resetAllData()
+                } label: {
+                    Text("모든 정보 초기화")
+                        .font(.subheadline)
+                        .foregroundColor(.red)
+                }
+                .padding(.bottom, 16)
             }
         }
         .onAppear {
@@ -260,6 +273,39 @@ struct ProfileEditView: View {
         }
     }
 
+    private var coachStyleSection: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("코치 스타일")
+                .font(.headline)
+                .foregroundColor(Theme.textSecondary)
+
+            VStack(spacing: 8) {
+                coachStyleButton(title: "빡센 코치", value: "tough")
+                coachStyleButton(title: "따뜻한 코치", value: "warm")
+                coachStyleButton(title: "분석형 코치", value: "analytical")
+            }
+        }
+    }
+
+    private func coachStyleButton(title: String, value: String) -> some View {
+        Button {
+            coachStyle = value
+        } label: {
+            Text(title)
+                .font(.subheadline)
+                .fontWeight(.medium)
+                .foregroundColor(coachStyle == value ? Theme.darkBackground : Theme.neonGreen)
+                .frame(maxWidth: .infinity)
+                .frame(height: 44)
+                .background(coachStyle == value ? Theme.neonGreen : Color.clear)
+                .cornerRadius(10)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Theme.neonGreen, lineWidth: 1.5)
+                )
+        }
+    }
+
     private var saveButton: some View {
         Button {
             if heightValidation == .warning {
@@ -288,6 +334,15 @@ struct ProfileEditView: View {
         weightText = String(format: "%.1f", profile.weight)
         bodyType = profile.bodyType
         goal = profile.goal
+        coachStyle = profile.coachStyle
+    }
+
+    private func resetAllData() {
+        for profile in profiles {
+            modelContext.delete(profile)
+        }
+        onboardingCompleted = false
+        dismiss()
     }
 
     private func saveProfile() {
@@ -300,6 +355,7 @@ struct ProfileEditView: View {
         profile.weight = w
         profile.bodyType = bodyType
         profile.goal = goal
+        profile.coachStyle = coachStyle
 
         dismiss()
     }

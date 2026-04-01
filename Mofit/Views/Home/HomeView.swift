@@ -135,10 +135,21 @@ struct HomeView: View {
 
     private var todaySummaryCard: some View {
         VStack(spacing: 16) {
-            Text("오늘의 기록")
-                .font(.headline)
-                .foregroundColor(Theme.textSecondary)
-                .frame(maxWidth: .infinity, alignment: .leading)
+            HStack {
+                Text("오늘의 기록")
+                    .font(.headline)
+                    .foregroundColor(Theme.textSecondary)
+
+                Spacer()
+
+                Button {
+                    showProfileEdit = true
+                } label: {
+                    Image(systemName: "pencil.circle")
+                        .font(.title3)
+                        .foregroundColor(Theme.textSecondary)
+                }
+            }
 
             if todaySessions.isEmpty {
                 Text("첫 운동을 시작해보세요!")

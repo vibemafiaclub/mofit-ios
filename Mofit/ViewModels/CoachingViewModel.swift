@@ -74,6 +74,7 @@ final class CoachingViewModel: ObservableObject {
         let avgRepsPerDay = workoutDays > 0 ? totalReps / workoutDays : 0
 
         let typeText = type == "pre" ? "운동 전" : "운동 후"
+        let coachStyleText = mapCoachStyle(userProfile.coachStyle)
         let genderText = mapGender(userProfile.gender)
         let bodyTypeText = mapBodyType(userProfile.bodyType)
         let goalText = mapGoal(userProfile.goal)
@@ -107,7 +108,8 @@ final class CoachingViewModel: ObservableObject {
         }
 
         return """
-        당신은 전문 피트니스 코치입니다. 사용자의 프로필과 최근 운동 기록을 바탕으로 \(typeText) 피드백을 제공해주세요.
+        당신은 전문 피트니스 코치입니다. \(coachStyleText)
+        사용자의 프로필과 최근 운동 기록을 바탕으로 \(typeText) 피드백을 제공해주세요.
 
         [사용자 프로필]
         - 성별: \(genderText)
@@ -126,6 +128,15 @@ final class CoachingViewModel: ObservableObject {
         \(dailySummary)
         한국어로 응답해주세요. 200자 이내로 간결하게.
         """
+    }
+
+    private func mapCoachStyle(_ style: String) -> String {
+        switch style {
+        case "tough": return "직설적이고 거친 말투로 동기부여하는 빡센 코치 스타일로 말해주세요. 반말을 사용하고 강하게 밀어붙여주세요."
+        case "warm": return "따뜻하고 친절하게 격려하는 코치 스타일로 말해주세요. 존댓말을 사용하고 칭찬을 아끼지 마세요."
+        case "analytical": return "데이터를 기반으로 냉철하게 분석하는 코치 스타일로 말해주세요. 감정보다 수치와 논리에 집중해주세요."
+        default: return "따뜻하고 친절하게 격려하는 코치 스타일로 말해주세요."
+        }
     }
 
     private func mapGender(_ gender: String) -> String {

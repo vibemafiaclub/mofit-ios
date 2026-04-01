@@ -12,10 +12,10 @@ struct MofitApp: App {
 }
 
 struct RootView: View {
-    @Query private var profiles: [UserProfile]
+    @AppStorage("onboardingCompleted") private var onboardingCompleted = false
 
     var body: some View {
-        if let profile = profiles.first, profile.onboardingCompleted {
+        if onboardingCompleted {
             ContentView()
         } else {
             OnboardingView()

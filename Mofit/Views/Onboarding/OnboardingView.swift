@@ -4,16 +4,20 @@ import SwiftUI
 struct OnboardingView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var profiles: [UserProfile]
+    @AppStorage("onboardingCompleted") private var onboardingCompleted = false
 
-    @State private var currentStep = 0
+    @State private var currentStep = OnboardingStep.gender
     @State private var gender = "male"
     @State private var heightText = ""
     @State private var weightText = ""
     @State private var bodyType = "normal"
     @State private var goal = "bodyShape"
+    @State private var coachStyle = "warm"
 
     @State private var showHeightWarning = false
     @State private var showWeightWarning = false
+    @FocusState private var heightFocused: Bool
+    @FocusState private var weightFocused: Bool
 
     private var height: Double? {
         Double(heightText)
@@ -42,11 +46,11 @@ struct OnboardingView: View {
             Theme.darkBackground.ignoresSafeArea()
 
             VStack {
-                if currentStep > 0 {
+                if currentStep != .gender {
                     HStack {
                         Button {
                             withAnimation(.easeInOut(duration: 0.3)) {
-                                currentStep -= 1
+                                if let prev = currentStep.previous { currentStep = prev }
                             }
                         } label: {
                             Image(systemName: "chevron.left")
@@ -62,33 +66,51 @@ struct OnboardingView: View {
 
                 Group {
                     switch currentStep {
-                    case 0:
+                    case .gender:
                         genderSelectionView
-                    case 1:
+                    case .height:
                         heightInputView
-                    case 2:
+                    case .weight:
                         weightInputView
-                    case 3:
+                    case .bodyType:
                         bodyTypeSelectionView
-                    case 4:
+                    case .goal:
                         goalSelectionView
-                    default:
-                        EmptyView()
+                    case .coachStyle:
+                        coachStyleSelectionView
                     }
                 }
                 .transition(.asymmetric(
                     insertion: .move(edge: .trailing),
                     removal: .move(edge: .leading)
                 ))
+                .gesture(
+                    DragGesture(minimumDistance: 50, coordinateSpace: .local)
+                        .onEnded { value in
+                            if value.translation.width > 50, let prev = currentStep.previous {
+                                withAnimation(.easeInOut(duration: 0.3)) {
+                                    currentStep = prev
+                                }
+                            }
+                        }
+                )
 
                 Spacer()
+            }
+        }
+        .onChange(of: currentStep) { _, newStep in
+            heightFocused = false
+            weightFocused = false
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                if newStep == .height { heightFocused = true }
+                if newStep == .weight { weightFocused = true }
             }
         }
         .alert("정말 \(heightText)cm가 맞나요?", isPresented: $showHeightWarning) {
             Button("취소", role: .cancel) {}
             Button("확인") {
                 withAnimation(.easeInOut(duration: 0.3)) {
-                    currentStep = 2
+                    currentStep = .weight
                 }
             }
         }
@@ -96,7 +118,7 @@ struct OnboardingView: View {
             Button("취소", role: .cancel) {}
             Button("확인") {
                 withAnimation(.easeInOut(duration: 0.3)) {
-                    currentStep = 3
+                    currentStep = .bodyType
                 }
             }
         }
@@ -121,16 +143,19 @@ struct OnboardingView: View {
         Button {
             gender = value
             withAnimation(.easeInOut(duration: 0.3)) {
-                currentStep = 1
+                if let next = currentStep.next { currentStep = next }
             }
         } label: {
             Text(title)
                 .font(.title2)
                 .fontWeight(.semibold)
-                .foregroundColor(Theme.darkBackground)
+                .foregroundColor(Theme.neonGreen)
                 .frame(width: 120, height: 120)
-                .background(Theme.neonGreen)
-                .cornerRadius(16)
+                .background(Color.clear)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 16)
+                        .stroke(Theme.neonGreen, lineWidth: 2)
+                )
         }
     }
 
@@ -142,12 +167,20 @@ struct OnboardingView: View {
                 .foregroundColor(Theme.textPrimary)
 
             HStack {
-                TextField("", text: $heightText)
+                TextField("170", text: $heightText)
                     .keyboardType(.numberPad)
                     .font(.system(size: 48, weight: .bold))
                     .foregroundColor(Theme.textPrimary)
                     .multilineTextAlignment(.center)
                     .frame(width: 150)
+                    .focused($heightFocused)
+                    .padding(.vertical, 8)
+                    .overlay(
+                        Rectangle()
+                            .frame(height: 2)
+                            .foregroundColor(Theme.neonGreen.opacity(0.5)),
+                        alignment: .bottom
+                    )
 
                 Text("cm")
                     .font(.title)
@@ -165,7 +198,7 @@ struct OnboardingView: View {
                     showHeightWarning = true
                 } else {
                     withAnimation(.easeInOut(duration: 0.3)) {
-                        currentStep = 2
+                        if let next = currentStep.next { currentStep = next }
                     }
                 }
             } label: {
@@ -191,12 +224,20 @@ struct OnboardingView: View {
                 .foregroundColor(Theme.textPrimary)
 
             HStack {
-                TextField("", text: $weightText)
+                TextField("70", text: $weightText)
                     .keyboardType(.decimalPad)
                     .font(.system(size: 48, weight: .bold))
                     .foregroundColor(Theme.textPrimary)
                     .multilineTextAlignment(.center)
                     .frame(width: 150)
+                    .focused($weightFocused)
+                    .padding(.vertical, 8)
+                    .overlay(
+                        Rectangle()
+                            .frame(height: 2)
+                            .foregroundColor(Theme.neonGreen.opacity(0.5)),
+                        alignment: .bottom
+                    )
 
                 Text("kg")
                     .font(.title)
@@ -214,7 +255,7 @@ struct OnboardingView: View {
                     showWeightWarning = true
                 } else {
                     withAnimation(.easeInOut(duration: 0.3)) {
-                        currentStep = 3
+                        if let next = currentStep.next { currentStep = next }
                     }
                 }
             } label: {
@@ -253,7 +294,7 @@ struct OnboardingView: View {
         Button {
             bodyType = value
             withAnimation(.easeInOut(duration: 0.3)) {
-                currentStep = 4
+                if let next = currentStep.next { currentStep = next }
             }
         } label: {
             Text(title)
@@ -288,7 +329,9 @@ struct OnboardingView: View {
     private func goalButton(title: String, value: String) -> some View {
         Button {
             goal = value
-            completeOnboarding()
+            withAnimation(.easeInOut(duration: 0.3)) {
+                if let next = currentStep.next { currentStep = next }
+            }
         } label: {
             Text(title)
                 .font(.headline)
@@ -303,6 +346,45 @@ struct OnboardingView: View {
         .padding(.horizontal, 40)
     }
 
+    private var coachStyleSelectionView: some View {
+        VStack(spacing: 32) {
+            Text("어떤 코치를 원하세요?")
+                .font(.title)
+                .fontWeight(.bold)
+                .foregroundColor(Theme.textPrimary)
+
+            VStack(spacing: 16) {
+                coachStyleButton(title: "빡센 코치", subtitle: "직설적이고 거친 동기부여", value: "tough")
+                coachStyleButton(title: "따뜻한 코치", subtitle: "친절하고 격려 위주", value: "warm")
+                coachStyleButton(title: "분석형 코치", subtitle: "데이터 중심, 냉철한 조언", value: "analytical")
+            }
+        }
+        .padding()
+    }
+
+    private func coachStyleButton(title: String, subtitle: String, value: String) -> some View {
+        Button {
+            coachStyle = value
+            completeOnboarding()
+        } label: {
+            VStack(spacing: 4) {
+                Text(title)
+                    .font(.headline)
+                    .foregroundColor(Theme.neonGreen)
+                Text(subtitle)
+                    .font(.caption)
+                    .foregroundColor(Theme.textSecondary)
+            }
+            .frame(maxWidth: .infinity)
+            .frame(height: 64)
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(Theme.neonGreen, lineWidth: 2)
+            )
+        }
+        .padding(.horizontal, 40)
+    }
+
     private func completeOnboarding() {
         let h = height ?? 170.0
         let w = weight ?? 70.0
@@ -313,7 +395,7 @@ struct OnboardingView: View {
             existingProfile.weight = w
             existingProfile.bodyType = bodyType
             existingProfile.goal = goal
-            existingProfile.onboardingCompleted = true
+            existingProfile.coachStyle = coachStyle
         } else {
             let newProfile = UserProfile(
                 gender: gender,
@@ -321,10 +403,12 @@ struct OnboardingView: View {
                 weight: w,
                 bodyType: bodyType,
                 goal: goal,
-                onboardingCompleted: true
+                coachStyle: coachStyle
             )
             modelContext.insert(newProfile)
         }
+
+        onboardingCompleted = true
     }
 }
 
@@ -332,4 +416,21 @@ private enum ValidationState {
     case valid
     case warning
     case invalid
+}
+
+private enum OnboardingStep: Int, CaseIterable {
+    case gender = 0
+    case height = 1
+    case weight = 2
+    case bodyType = 3
+    case goal = 4
+    case coachStyle = 5
+
+    var next: OnboardingStep? {
+        OnboardingStep(rawValue: rawValue + 1)
+    }
+
+    var previous: OnboardingStep? {
+        OnboardingStep(rawValue: rawValue - 1)
+    }
 }
