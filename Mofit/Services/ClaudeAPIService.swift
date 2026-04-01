@@ -10,7 +10,7 @@ enum ClaudeAPIError: Error {
 
 class ClaudeAPIService {
     private let endpoint = "https://api.anthropic.com/v1/messages"
-    private let model = "claude-sonnet-4-5-20250514"
+    private let model = "claude-sonnet-4-6"
     private let maxTokens = 1024
 
     func requestFeedback(prompt: String) async throws -> String {

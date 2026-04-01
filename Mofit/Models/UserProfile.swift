@@ -7,7 +7,7 @@ class UserProfile {
     var weight: Double
     var bodyType: String
     var goal: String
-    var onboardingCompleted: Bool
+    var coachStyle: String
 
     init(
         gender: String = "male",
@@ -15,13 +15,13 @@ class UserProfile {
         weight: Double = 70.0,
         bodyType: String = "normal",
         goal: String = "bodyShape",
-        onboardingCompleted: Bool = false
+        coachStyle: String = "warm"
     ) {
         self.gender = gender
         self.height = height
         self.weight = weight
         self.bodyType = bodyType
         self.goal = goal
-        self.onboardingCompleted = onboardingCompleted
+        self.coachStyle = coachStyle
     }
 }

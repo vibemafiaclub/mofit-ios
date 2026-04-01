@@ -50,6 +50,15 @@ struct CoachingView: View {
         }
     }
 
+    private var coachStyleLabel: String {
+        switch profile?.coachStyle ?? "warm" {
+        case "tough": return "빡센 코치"
+        case "warm": return "따뜻한 코치"
+        case "analytical": return "분석형 코치"
+        default: return "따뜻한 코치"
+        }
+    }
+
     private var headerSection: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text("AI 코칭")
@@ -57,9 +66,32 @@ struct CoachingView: View {
                 .fontWeight(.bold)
                 .foregroundColor(Theme.textPrimary)
 
-            Text("오늘 \(todayUsageCount)회 / 2회 사용")
-                .font(.subheadline)
-                .foregroundColor(Theme.textSecondary)
+            HStack {
+                Text("오늘 \(todayUsageCount)회 / 2회 사용")
+                    .font(.subheadline)
+                    .foregroundColor(Theme.textSecondary)
+
+                Spacer()
+
+                Menu {
+                    Button { profile?.coachStyle = "tough" } label: { Label("빡센 코치", systemImage: "flame") }
+                    Button { profile?.coachStyle = "warm" } label: { Label("따뜻한 코치", systemImage: "heart") }
+                    Button { profile?.coachStyle = "analytical" } label: { Label("분석형 코치", systemImage: "chart.bar") }
+                } label: {
+                    HStack(spacing: 4) {
+                        Text(coachStyleLabel)
+                            .font(.caption)
+                            .fontWeight(.medium)
+                        Image(systemName: "chevron.down")
+                            .font(.caption2)
+                    }
+                    .foregroundColor(Theme.neonGreen)
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 6)
+                    .background(Theme.neonGreen.opacity(0.15))
+                    .cornerRadius(8)
+                }
+            }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }
