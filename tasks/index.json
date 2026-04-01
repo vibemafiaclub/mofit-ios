@@ -1,3 +1,11 @@
 {
-  "tasks": []
+  "tasks": [
+    {
+      "id": 0,
+      "name": "mvp",
+      "dir": "0-mvp",
+      "status": "pending",
+      "created_at": "2026-04-01T21:36:00+0900"
+    }
+  ]
 }
