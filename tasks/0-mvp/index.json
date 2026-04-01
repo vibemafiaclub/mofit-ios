@@ -57,7 +57,9 @@
     {
       "phase": 7,
       "name": "ai-coaching",
-      "status": "pending"
+      "status": "completed",
+      "started_at": "2026-04-01T22:02:06+0900",
+      "completed_at": "2026-04-01T22:07:30+0900"
     },
     {
       "phase": 8,

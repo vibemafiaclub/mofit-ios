@@ -15,10 +15,7 @@ struct ContentView: View {
                     Text("기록")
                 }
 
-            Text("AI Coaching Tab")
-                .foregroundColor(Theme.textPrimary)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Theme.darkBackground)
+            CoachingView()
                 .tabItem {
                     Image(systemName: "brain.head.profile")
                     Text("AI코칭")
