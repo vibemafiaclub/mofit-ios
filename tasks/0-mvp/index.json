@@ -43,8 +43,9 @@
     {
       "phase": 5,
       "name": "tracking-screen",
-      "status": "pending",
-      "started_at": "2026-04-01T21:55:32+0900"
+      "status": "completed",
+      "started_at": "2026-04-01T21:55:32+0900",
+      "completed_at": "2026-04-01T22:10:00+0900"
     },
     {
       "phase": 6,

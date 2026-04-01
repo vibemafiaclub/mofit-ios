@@ -74,7 +74,7 @@ struct HomeView: View {
             ProfileEditView()
         }
         .fullScreenCover(isPresented: $showTracking) {
-            TrackingPlaceholderView()
+            TrackingView(showConfetti: $showConfetti)
         }
     }
 
@@ -230,36 +230,4 @@ struct ConfettiParticle: Identifiable {
     var x: CGFloat
     var y: CGFloat
     var emoji: String
-}
-
-struct TrackingPlaceholderView: View {
-    @Environment(\.dismiss) private var dismiss
-
-    var body: some View {
-        ZStack {
-            Theme.darkBackground.ignoresSafeArea()
-
-            VStack(spacing: 24) {
-                Text("트래킹 화면")
-                    .font(.title)
-                    .fontWeight(.bold)
-                    .foregroundColor(Theme.textPrimary)
-
-                Text("Phase 5에서 구현 예정")
-                    .font(.subheadline)
-                    .foregroundColor(Theme.textSecondary)
-
-                Button {
-                    dismiss()
-                } label: {
-                    Text("닫기")
-                        .font(.headline)
-                        .foregroundColor(Theme.darkBackground)
-                        .frame(width: 120, height: 48)
-                        .background(Theme.neonGreen)
-                        .cornerRadius(12)
-                }
-            }
-        }
-    }
 }
