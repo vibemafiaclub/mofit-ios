@@ -1,0 +1,364 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		27DAFE208404F65266CCB764 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6926B00BCAFB4148B2CE7F /* Secrets.swift */; };
+		42706E3EA4FD131DFF90A0B5 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FEB08F60AF059876333C077 /* SwiftUI.framework */; };
+		7D5D3538BE4DC07BF4502F22 /* MofitApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 214EA30ADD81F450DEA7E3C9 /* MofitApp.swift */; };
+		CE3869E8362AB00FBC1D12D7 /* SwiftData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01CAF0F33617545D6CFC1B30 /* SwiftData.framework */; };
+		DEAF30B7E4070A8E3EC79D3B /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692ADE0BD55D8B60B1BA9595 /* Theme.swift */; };
+		E1F4BBE70C968CD633DAF968 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFD763970F385A2ACEF4378B /* AVFoundation.framework */; };
+		EBD474B9931DADC6EF009DA5 /* Vision.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD6BDED53C67924AFC395DBF /* Vision.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		01CAF0F33617545D6CFC1B30 /* SwiftData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftData.framework; path = System/Library/Frameworks/SwiftData.framework; sourceTree = SDKROOT; };
+		214EA30ADD81F450DEA7E3C9 /* MofitApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MofitApp.swift; sourceTree = "<group>"; };
+		692ADE0BD55D8B60B1BA9595 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		9FEB08F60AF059876333C077 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		AAF026B1546FA243B6007EB4 /* Mofit.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Mofit.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AFD763970F385A2ACEF4378B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		EA6926B00BCAFB4148B2CE7F /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
+		FD6BDED53C67924AFC395DBF /* Vision.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Vision.framework; path = System/Library/Frameworks/Vision.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3DB5F598EF79AA40F66941C3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				42706E3EA4FD131DFF90A0B5 /* SwiftUI.framework in Frameworks */,
+				CE3869E8362AB00FBC1D12D7 /* SwiftData.framework in Frameworks */,
+				E1F4BBE70C968CD633DAF968 /* AVFoundation.framework in Frameworks */,
+				EBD474B9931DADC6EF009DA5 /* Vision.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		010035ED61AD343EF4B7DE08 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				692ADE0BD55D8B60B1BA9595 /* Theme.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		4F1209792DEF530D5589AEB1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AAF026B1546FA243B6007EB4 /* Mofit.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6BB4CC37EA51BEEE96594A03 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				EA6926B00BCAFB4148B2CE7F /* Secrets.swift */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		7D8BCFF0B990F7BA9111D060 = {
+			isa = PBXGroup;
+			children = (
+				B49858869120FF23A1FF6B5B /* Mofit */,
+				C4CCD02BEB013A28BB9711BD /* Frameworks */,
+				4F1209792DEF530D5589AEB1 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B49858869120FF23A1FF6B5B /* Mofit */ = {
+			isa = PBXGroup;
+			children = (
+				C7467180B02E2EE58C7A495D /* App */,
+				6BB4CC37EA51BEEE96594A03 /* Config */,
+				010035ED61AD343EF4B7DE08 /* Utils */,
+			);
+			path = Mofit;
+			sourceTree = "<group>";
+		};
+		C4CCD02BEB013A28BB9711BD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AFD763970F385A2ACEF4378B /* AVFoundation.framework */,
+				01CAF0F33617545D6CFC1B30 /* SwiftData.framework */,
+				9FEB08F60AF059876333C077 /* SwiftUI.framework */,
+				FD6BDED53C67924AFC395DBF /* Vision.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C7467180B02E2EE58C7A495D /* App */ = {
+			isa = PBXGroup;
+			children = (
+				214EA30ADD81F450DEA7E3C9 /* MofitApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		"TEMP_56D6AFDA-FA23-47D9-BC71-8A8B41929B52" /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		32591D02772FBE7F7A3F7895 /* Mofit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 771E7A6031B8064DCBA6C880 /* Build configuration list for PBXNativeTarget "Mofit" */;
+			buildPhases = (
+				494CD700403A9E406CECF283 /* Sources */,
+				3DB5F598EF79AA40F66941C3 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Mofit;
+			packageProductDependencies = (
+			);
+			productName = Mofit;
+			productReference = AAF026B1546FA243B6007EB4 /* Mofit.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6729E0742E1B4115D4A112AB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+				};
+			};
+			buildConfigurationList = 6939A7AC177BF34008D99B26 /* Build configuration list for PBXProject "Mofit" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 7D8BCFF0B990F7BA9111D060;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 4F1209792DEF530D5589AEB1 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				32591D02772FBE7F7A3F7895 /* Mofit */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		494CD700403A9E406CECF283 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7D5D3538BE4DC07BF4502F22 /* MofitApp.swift in Sources */,
+				27DAFE208404F65266CCB764 /* Secrets.swift in Sources */,
+				DEAF30B7E4070A8E3EC79D3B /* Theme.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		24F654B1FAFBE6076EDDE236 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+		2D8794048F7EAAFAC3962495 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_KEY_NSCameraUsageDescription = "운동 자세를 추적하기 위해 카메라가 필요합니다";
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				"INFOPLIST_KEY_UISupportedInterfaceOrientations~ipad" = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.mofit.app;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		70CFAA2AF116470FF3BC5FF5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
+		82499E51EBCFDF730EAE0D2E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_KEY_NSCameraUsageDescription = "운동 자세를 추적하기 위해 카메라가 필요합니다";
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				"INFOPLIST_KEY_UISupportedInterfaceOrientations~ipad" = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.mofit.app;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6939A7AC177BF34008D99B26 /* Build configuration list for PBXProject "Mofit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				24F654B1FAFBE6076EDDE236 /* Debug */,
+				70CFAA2AF116470FF3BC5FF5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		771E7A6031B8064DCBA6C880 /* Build configuration list for PBXNativeTarget "Mofit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				82499E51EBCFDF730EAE0D2E /* Debug */,
+				2D8794048F7EAAFAC3962495 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 6729E0742E1B4115D4A112AB /* Project object */;
+}
