@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		16FCD4175557A3FA0112085B /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9AEF1F00E6ACCA4EDBAD2B /* UserProfile.swift */; };
+		1B9A22903E537DBBF96DCFE9 /* RecordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91365E96256337D2E97E8863 /* RecordsView.swift */; };
 		20D3C2873C603E787E8F4B8A /* SquatCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AABB2EE6E0D3FF9420DBD32 /* SquatCounter.swift */; };
 		27DAFE208404F65266CCB764 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6926B00BCAFB4148B2CE7F /* Secrets.swift */; };
 		28BEC92F8D3C38F69BF8FCB4 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EEF557BD61F940108232A66 /* OnboardingView.swift */; };
@@ -44,6 +45,7 @@
 		7265E97D9767068D4780D4A1 /* CameraPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreviewView.swift; sourceTree = "<group>"; };
 		7FD0106B1C899177F7A304F5 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		8AABB2EE6E0D3FF9420DBD32 /* SquatCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquatCounter.swift; sourceTree = "<group>"; };
+		91365E96256337D2E97E8863 /* RecordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsView.swift; sourceTree = "<group>"; };
 		9B473B4153DEB5184CD1DF3B /* PoseDetectionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoseDetectionService.swift; sourceTree = "<group>"; };
 		9D9AEF1F00E6ACCA4EDBAD2B /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		9EEF557BD61F940108232A66 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 				E1EA61E0890C370F0D3F0308 /* Home */,
 				470960906A4F7A7B2176FFD9 /* Onboarding */,
 				90121867D476BD98D5853FC5 /* Profile */,
+				5DA273E99E19FBC15D74DD5B /* Records */,
 				D722113FF9C985FBF303C101 /* Tracking */,
 			);
 			path = Views;
@@ -115,6 +118,14 @@
 				AAF026B1546FA243B6007EB4 /* Mofit.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		5DA273E99E19FBC15D74DD5B /* Records */ = {
+			isa = PBXGroup;
+			children = (
+				91365E96256337D2E97E8863 /* RecordsView.swift */,
+			);
+			path = Records;
 			sourceTree = "<group>";
 		};
 		6BB4CC37EA51BEEE96594A03 /* Config */ = {
@@ -288,6 +299,7 @@
 				28BEC92F8D3C38F69BF8FCB4 /* OnboardingView.swift in Sources */,
 				C1B84A4F28079F66C472B3E3 /* PoseDetectionService.swift in Sources */,
 				7F5E60F9E1F04E158EA97BF3 /* ProfileEditView.swift in Sources */,
+				1B9A22903E537DBBF96DCFE9 /* RecordsView.swift in Sources */,
 				27DAFE208404F65266CCB764 /* Secrets.swift in Sources */,
 				20D3C2873C603E787E8F4B8A /* SquatCounter.swift in Sources */,
 				DEAF30B7E4070A8E3EC79D3B /* Theme.swift in Sources */,

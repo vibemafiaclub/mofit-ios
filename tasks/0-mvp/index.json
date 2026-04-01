@@ -50,7 +50,9 @@
     {
       "phase": 6,
       "name": "records-tab",
-      "status": "pending"
+      "status": "completed",
+      "started_at": "2026-04-01T21:58:33+0900",
+      "completed_at": "2026-04-01T22:01:24+0900"
     },
     {
       "phase": 7,

@@ -9,10 +9,7 @@ struct ContentView: View {
                     Text("홈")
                 }
 
-            Text("Records Tab")
-                .foregroundColor(Theme.textPrimary)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Theme.darkBackground)
+            RecordsView()
                 .tabItem {
                     Image(systemName: "chart.bar.fill")
                     Text("기록")
