@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		094163C9DEF51C3EE39D9614 /* ClaudeAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0EF3318085666DEC44477C3 /* ClaudeAPIService.swift */; };
 		16FCD4175557A3FA0112085B /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D9AEF1F00E6ACCA4EDBAD2B /* UserProfile.swift */; };
 		1B9A22903E537DBBF96DCFE9 /* RecordsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91365E96256337D2E97E8863 /* RecordsView.swift */; };
 		20D3C2873C603E787E8F4B8A /* SquatCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AABB2EE6E0D3FF9420DBD32 /* SquatCounter.swift */; };
@@ -22,7 +23,9 @@
 		7D5D3538BE4DC07BF4502F22 /* MofitApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 214EA30ADD81F450DEA7E3C9 /* MofitApp.swift */; };
 		7F5E60F9E1F04E158EA97BF3 /* ProfileEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1158905F483172755B0524FC /* ProfileEditView.swift */; };
 		88FD2E48998C96BB14108A63 /* CameraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4535905A61EC5F7A0653DBFB /* CameraManager.swift */; };
+		8B684CD65145369C7C2FFCB8 /* CoachingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B4FC2D59300586B765871D4 /* CoachingViewModel.swift */; };
 		96EFA1EBD9682AADCD21DD5D /* WorkoutSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C63EA4E638B27B2DADD3EA /* WorkoutSession.swift */; };
+		9C994E3281C4CB9F30838AA7 /* CoachingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6404E727F43F13BC9E2BA38 /* CoachingView.swift */; };
 		C1B84A4F28079F66C472B3E3 /* PoseDetectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B473B4153DEB5184CD1DF3B /* PoseDetectionService.swift */; };
 		CE3869E8362AB00FBC1D12D7 /* SwiftData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01CAF0F33617545D6CFC1B30 /* SwiftData.framework */; };
 		DD38B3EBA35F9251B888AF89 /* TrackingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A853CA7EFE44584A6601A1BA /* TrackingViewModel.swift */; };
@@ -45,17 +48,20 @@
 		7265E97D9767068D4780D4A1 /* CameraPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreviewView.swift; sourceTree = "<group>"; };
 		7FD0106B1C899177F7A304F5 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		8AABB2EE6E0D3FF9420DBD32 /* SquatCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquatCounter.swift; sourceTree = "<group>"; };
+		8B4FC2D59300586B765871D4 /* CoachingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachingViewModel.swift; sourceTree = "<group>"; };
 		91365E96256337D2E97E8863 /* RecordsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsView.swift; sourceTree = "<group>"; };
 		9B473B4153DEB5184CD1DF3B /* PoseDetectionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoseDetectionService.swift; sourceTree = "<group>"; };
 		9D9AEF1F00E6ACCA4EDBAD2B /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		9EEF557BD61F940108232A66 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		9FEB08F60AF059876333C077 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		A0EF3318085666DEC44477C3 /* ClaudeAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClaudeAPIService.swift; sourceTree = "<group>"; };
 		A853CA7EFE44584A6601A1BA /* TrackingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingViewModel.swift; sourceTree = "<group>"; };
 		AA180531E041D0064A4E1BD6 /* HandDetectionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandDetectionService.swift; sourceTree = "<group>"; };
 		AAF026B1546FA243B6007EB4 /* Mofit.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Mofit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFD763970F385A2ACEF4378B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		D4B469CE7D4368EF6D89E602 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		EA6926B00BCAFB4148B2CE7F /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
+		F6404E727F43F13BC9E2BA38 /* CoachingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachingView.swift; sourceTree = "<group>"; };
 		FD6BDED53C67924AFC395DBF /* Vision.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Vision.framework; path = System/Library/Frameworks/Vision.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -82,9 +88,18 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		1CCF6FF1A067AD9A881836DB /* Coaching */ = {
+			isa = PBXGroup;
+			children = (
+				F6404E727F43F13BC9E2BA38 /* CoachingView.swift */,
+			);
+			path = Coaching;
+			sourceTree = "<group>";
+		};
 		351FD4F0100707CD3D6F0E15 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				1CCF6FF1A067AD9A881836DB /* Coaching */,
 				E1EA61E0890C370F0D3F0308 /* Home */,
 				470960906A4F7A7B2176FFD9 /* Onboarding */,
 				90121867D476BD98D5853FC5 /* Profile */,
@@ -97,6 +112,7 @@
 		3521CE0928B3E8CB2B55A751 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				A0EF3318085666DEC44477C3 /* ClaudeAPIService.swift */,
 				AA180531E041D0064A4E1BD6 /* HandDetectionService.swift */,
 				9B473B4153DEB5184CD1DF3B /* PoseDetectionService.swift */,
 				8AABB2EE6E0D3FF9420DBD32 /* SquatCounter.swift */,
@@ -156,6 +172,7 @@
 		905AF7D56D47E9F468091407 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				8B4FC2D59300586B765871D4 /* CoachingViewModel.swift */,
 				A853CA7EFE44584A6601A1BA /* TrackingViewModel.swift */,
 			);
 			path = ViewModels;
@@ -290,7 +307,10 @@
 			files = (
 				88FD2E48998C96BB14108A63 /* CameraManager.swift in Sources */,
 				3456C1E6B1FACFC4828904F6 /* CameraPreviewView.swift in Sources */,
+				094163C9DEF51C3EE39D9614 /* ClaudeAPIService.swift in Sources */,
 				7BCFF0611D7245687E155CB3 /* CoachingFeedback.swift in Sources */,
+				9C994E3281C4CB9F30838AA7 /* CoachingView.swift in Sources */,
+				8B684CD65145369C7C2FFCB8 /* CoachingViewModel.swift in Sources */,
 				62E6A2F7189D49E9C730510F /* ContentView.swift in Sources */,
 				452BA3B22960942A08B1C71F /* ExercisePickerView.swift in Sources */,
 				6FD68579976E3FDF0FE0CC93 /* HandDetectionService.swift in Sources */,
