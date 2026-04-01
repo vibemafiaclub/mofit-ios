@@ -64,7 +64,9 @@
     {
       "phase": 8,
       "name": "integration-polish",
-      "status": "pending"
+      "status": "completed",
+      "started_at": "2026-04-01T22:05:30+0900",
+      "completed_at": "2026-04-01T22:07:52+0900"
     }
   ]
 }
