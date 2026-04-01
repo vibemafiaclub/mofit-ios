@@ -11,6 +11,7 @@
 		20D3C2873C603E787E8F4B8A /* SquatCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AABB2EE6E0D3FF9420DBD32 /* SquatCounter.swift */; };
 		27DAFE208404F65266CCB764 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6926B00BCAFB4148B2CE7F /* Secrets.swift */; };
 		28BEC92F8D3C38F69BF8FCB4 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EEF557BD61F940108232A66 /* OnboardingView.swift */; };
+		320295EE2CEBDD3313B19239 /* TrackingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63EF72D733CC4E5FA9705120 /* TrackingView.swift */; };
 		3456C1E6B1FACFC4828904F6 /* CameraPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7265E97D9767068D4780D4A1 /* CameraPreviewView.swift */; };
 		42706E3EA4FD131DFF90A0B5 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FEB08F60AF059876333C077 /* SwiftUI.framework */; };
 		452BA3B22960942A08B1C71F /* ExercisePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE0CBECA32BA59FFC2EDCB9 /* ExercisePickerView.swift */; };
@@ -23,6 +24,7 @@
 		96EFA1EBD9682AADCD21DD5D /* WorkoutSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C63EA4E638B27B2DADD3EA /* WorkoutSession.swift */; };
 		C1B84A4F28079F66C472B3E3 /* PoseDetectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B473B4153DEB5184CD1DF3B /* PoseDetectionService.swift */; };
 		CE3869E8362AB00FBC1D12D7 /* SwiftData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01CAF0F33617545D6CFC1B30 /* SwiftData.framework */; };
+		DD38B3EBA35F9251B888AF89 /* TrackingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A853CA7EFE44584A6601A1BA /* TrackingViewModel.swift */; };
 		DEAF30B7E4070A8E3EC79D3B /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692ADE0BD55D8B60B1BA9595 /* Theme.swift */; };
 		E1F4BBE70C968CD633DAF968 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFD763970F385A2ACEF4378B /* AVFoundation.framework */; };
 		EBD474B9931DADC6EF009DA5 /* Vision.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD6BDED53C67924AFC395DBF /* Vision.framework */; };
@@ -37,6 +39,7 @@
 		4535905A61EC5F7A0653DBFB /* CameraManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraManager.swift; sourceTree = "<group>"; };
 		53C63EA4E638B27B2DADD3EA /* WorkoutSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSession.swift; sourceTree = "<group>"; };
 		546B0402F236C3DBE3C24E27 /* CoachingFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachingFeedback.swift; sourceTree = "<group>"; };
+		63EF72D733CC4E5FA9705120 /* TrackingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingView.swift; sourceTree = "<group>"; };
 		692ADE0BD55D8B60B1BA9595 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		7265E97D9767068D4780D4A1 /* CameraPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreviewView.swift; sourceTree = "<group>"; };
 		7FD0106B1C899177F7A304F5 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -45,6 +48,7 @@
 		9D9AEF1F00E6ACCA4EDBAD2B /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		9EEF557BD61F940108232A66 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		9FEB08F60AF059876333C077 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		A853CA7EFE44584A6601A1BA /* TrackingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingViewModel.swift; sourceTree = "<group>"; };
 		AA180531E041D0064A4E1BD6 /* HandDetectionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandDetectionService.swift; sourceTree = "<group>"; };
 		AAF026B1546FA243B6007EB4 /* Mofit.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Mofit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFD763970F385A2ACEF4378B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -82,6 +86,7 @@
 				E1EA61E0890C370F0D3F0308 /* Home */,
 				470960906A4F7A7B2176FFD9 /* Onboarding */,
 				90121867D476BD98D5853FC5 /* Profile */,
+				D722113FF9C985FBF303C101 /* Tracking */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -137,6 +142,14 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
+		905AF7D56D47E9F468091407 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				A853CA7EFE44584A6601A1BA /* TrackingViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		A8C98A8954DFC2D3AC1D95BD /* Camera */ = {
 			isa = PBXGroup;
 			children = (
@@ -155,6 +168,7 @@
 				B83374148D92C502F3FE199F /* Models */,
 				3521CE0928B3E8CB2B55A751 /* Services */,
 				010035ED61AD343EF4B7DE08 /* Utils */,
+				905AF7D56D47E9F468091407 /* ViewModels */,
 				351FD4F0100707CD3D6F0E15 /* Views */,
 			);
 			path = Mofit;
@@ -188,6 +202,14 @@
 				214EA30ADD81F450DEA7E3C9 /* MofitApp.swift */,
 			);
 			path = App;
+			sourceTree = "<group>";
+		};
+		D722113FF9C985FBF303C101 /* Tracking */ = {
+			isa = PBXGroup;
+			children = (
+				63EF72D733CC4E5FA9705120 /* TrackingView.swift */,
+			);
+			path = Tracking;
 			sourceTree = "<group>";
 		};
 		E1EA61E0890C370F0D3F0308 /* Home */ = {
@@ -269,6 +291,8 @@
 				27DAFE208404F65266CCB764 /* Secrets.swift in Sources */,
 				20D3C2873C603E787E8F4B8A /* SquatCounter.swift in Sources */,
 				DEAF30B7E4070A8E3EC79D3B /* Theme.swift in Sources */,
+				320295EE2CEBDD3313B19239 /* TrackingView.swift in Sources */,
+				DD38B3EBA35F9251B888AF89 /* TrackingViewModel.swift in Sources */,
 				16FCD4175557A3FA0112085B /* UserProfile.swift in Sources */,
 				96EFA1EBD9682AADCD21DD5D /* WorkoutSession.swift in Sources */,
 			);
