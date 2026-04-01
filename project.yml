@@ -1,0 +1,43 @@
+name: Mofit
+options:
+  bundleIdPrefix: com.mofit
+  deploymentTarget:
+    iOS: "17.0"
+  xcodeVersion: "15.0"
+
+settings:
+  base:
+    SWIFT_VERSION: "5.9"
+    GENERATE_INFOPLIST_FILE: YES
+
+targets:
+  Mofit:
+    type: application
+    platform: iOS
+    sources:
+      - path: Mofit
+        excludes:
+          - "Config/Secrets.example.swift"
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.mofit.app
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_NSCameraUsageDescription: "운동 자세를 추적하기 위해 카메라가 필요합니다"
+        INFOPLIST_KEY_UIUserInterfaceStyle: Dark
+        INFOPLIST_KEY_UISupportedInterfaceOrientations: "UIInterfaceOrientationPortrait"
+        INFOPLIST_KEY_UISupportedInterfaceOrientations~ipad: "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown"
+    dependencies:
+      - sdk: SwiftUI.framework
+      - sdk: SwiftData.framework
+      - sdk: AVFoundation.framework
+      - sdk: Vision.framework
+
+schemes:
+  Mofit:
+    build:
+      targets:
+        Mofit: all
+    run:
+      config: Debug
+    archive:
+      config: Release

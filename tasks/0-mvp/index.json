@@ -1,0 +1,56 @@
+{
+  "project": "mofit-ios",
+  "task": "mvp",
+  "prompt": "docs/ 디렉토리의 설계 문서(prd.md, flow.md, data-schema.md, code-architecture.md, adr.md)를 기반으로 모핏(Mofit) iOS 앱 MVP를 전부 구현해줘.",
+  "totalPhases": 9,
+  "created_at": "2026-04-01T21:36:00+0900",
+  "phases": [
+    {
+      "phase": 0,
+      "name": "project-setup",
+      "status": "completed",
+      "started_at": "2026-04-01T21:40:55+0900",
+      "completed_at": "2026-04-01T22:10:00+0900"
+    },
+    {
+      "phase": 1,
+      "name": "data-models",
+      "status": "pending"
+    },
+    {
+      "phase": 2,
+      "name": "app-entry-onboarding",
+      "status": "pending"
+    },
+    {
+      "phase": 3,
+      "name": "home-tab",
+      "status": "pending"
+    },
+    {
+      "phase": 4,
+      "name": "camera-vision",
+      "status": "pending"
+    },
+    {
+      "phase": 5,
+      "name": "tracking-screen",
+      "status": "pending"
+    },
+    {
+      "phase": 6,
+      "name": "records-tab",
+      "status": "pending"
+    },
+    {
+      "phase": 7,
+      "name": "ai-coaching",
+      "status": "pending"
+    },
+    {
+      "phase": 8,
+      "name": "integration-polish",
+      "status": "pending"
+    }
+  ]
+}

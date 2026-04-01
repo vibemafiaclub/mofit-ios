@@ -1,1 +1,14 @@
 .omc
+
+# Xcode
+*.xcodeproj/xcuserdata/
+*.xcodeproj/project.xcworkspace/xcuserdata/
+DerivedData/
+*.xcworkspace
+build/
+
+# Secrets
+Mofit/Config/Secrets.swift
+
+# macOS
+.DS_Store
