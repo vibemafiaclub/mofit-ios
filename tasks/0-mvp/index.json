@@ -36,12 +36,15 @@
     {
       "phase": 4,
       "name": "camera-vision",
-      "status": "pending"
+      "status": "completed",
+      "started_at": "2026-04-01T21:53:06+0900",
+      "completed_at": "2026-04-01T21:55:32+0900"
     },
     {
       "phase": 5,
       "name": "tracking-screen",
-      "status": "pending"
+      "status": "pending",
+      "started_at": "2026-04-01T21:55:32+0900"
     },
     {
       "phase": 6,
