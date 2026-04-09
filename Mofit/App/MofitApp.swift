@@ -9,6 +9,7 @@ struct MofitApp: App {
     init() {
         let container = try! ModelContainer(for: UserProfile.self, WorkoutSession.self, CoachingFeedback.self)
         self.modelContainer = container
+        AnalyticsService.shared.initialize()
     }
 
     var body: some Scene {

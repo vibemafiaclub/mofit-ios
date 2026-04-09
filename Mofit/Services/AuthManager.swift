@@ -65,6 +65,7 @@ final class AuthManager: ObservableObject {
             let authResponse = try JSONDecoder().decode(AuthResponse.self, from: data)
             KeychainService.save(token: authResponse.token)
             isLoggedIn = true
+            AnalyticsService.shared.identify(userId: authResponse.user.id)
             currentUser = authResponse.user
             onAuthStateChanged?()
         } else {
@@ -95,6 +96,7 @@ final class AuthManager: ObservableObject {
             let authResponse = try JSONDecoder().decode(AuthResponse.self, from: data)
             KeychainService.save(token: authResponse.token)
             isLoggedIn = true
+            AnalyticsService.shared.identify(userId: authResponse.user.id)
             currentUser = authResponse.user
         } else {
             if let errorResponse = try? JSONDecoder().decode(AuthErrorResponse.self, from: data) {
@@ -109,6 +111,7 @@ final class AuthManager: ObservableObject {
     func logout() {
         KeychainService.deleteToken()
         isLoggedIn = false
+        AnalyticsService.shared.reset()
         currentUser = nil
         onAuthStateChanged?()
     }

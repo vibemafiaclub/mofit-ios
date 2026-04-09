@@ -1,4 +1,10 @@
 name: Mofit
+
+packages:
+  Mixpanel:
+    url: https://github.com/mixpanel/mixpanel-swift
+    from: "4.3.0"
+
 options:
   bundleIdPrefix: com.mofit
   deploymentTarget:
@@ -32,6 +38,7 @@ targets:
       - sdk: AVFoundation.framework
       - sdk: Vision.framework
       - sdk: Security.framework
+      - package: Mixpanel
 
 schemes:
   Mofit:

@@ -15,7 +15,9 @@
     {
       "phase": 1,
       "name": "sdk-setup",
-      "status": "pending"
+      "status": "completed",
+      "started_at": "2026-04-09T23:02:26+0900",
+      "completed_at": "2026-04-09T23:15:00+0900"
     },
     {
       "phase": 2,

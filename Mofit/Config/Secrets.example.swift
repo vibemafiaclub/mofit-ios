@@ -2,4 +2,5 @@
 // 이 파일은 git에 포함됩니다. Secrets.swift는 .gitignore에 의해 제외됩니다.
 enum Secrets {
     static let claudeAPIKey = "YOUR_API_KEY_HERE"
+    static let mixpanelToken = "YOUR_MIXPANEL_TOKEN_HERE"
 }
