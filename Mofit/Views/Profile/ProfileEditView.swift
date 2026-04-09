@@ -4,6 +4,7 @@ import SwiftUI
 struct ProfileEditView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
+    @EnvironmentObject var authManager: AuthManager
     @Query private var profiles: [UserProfile]
 
     @State private var gender = "male"
@@ -70,6 +71,18 @@ struct ProfileEditView: View {
                 saveButton
                     .padding(.horizontal)
                     .padding(.bottom, 8)
+
+                if authManager.isLoggedIn {
+                    Button {
+                        authManager.logout()
+                        dismiss()
+                    } label: {
+                        Text("로그아웃")
+                            .font(.subheadline)
+                            .foregroundColor(.orange)
+                    }
+                    .padding(.bottom, 8)
+                }
 
                 Button {
                     resetAllData()

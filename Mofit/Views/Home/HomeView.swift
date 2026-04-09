@@ -3,6 +3,7 @@ import SwiftUI
 
 struct HomeView: View {
     @Environment(\.modelContext) private var modelContext
+    @EnvironmentObject var authManager: AuthManager
     @Query private var profiles: [UserProfile]
     @Query private var sessions: [WorkoutSession]
 
@@ -82,6 +83,7 @@ struct HomeView: View {
         }
         .fullScreenCover(isPresented: $showProfileEdit) {
             ProfileEditView()
+                .environmentObject(authManager)
         }
         .fullScreenCover(isPresented: $showTracking) {
             TrackingView(exerciseType: selectedExerciseType, showConfetti: $showConfetti)
