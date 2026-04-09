@@ -18,6 +18,9 @@ struct ProfileEditView: View {
 
     @State private var showHeightWarning = false
     @State private var showWeightWarning = false
+    @State private var isLoadingServerProfile = false
+    @State private var showSaveError = false
+    @State private var saveErrorMessage = ""
 
     private var height: Double? {
         Double(heightText)
@@ -97,6 +100,9 @@ struct ProfileEditView: View {
         .onAppear {
             loadProfile()
         }
+        .task {
+            await loadServerProfile()
+        }
         .alert("정말 \(heightText)cm가 맞나요?", isPresented: $showHeightWarning) {
             Button("취소", role: .cancel) {}
             Button("확인") {
@@ -109,6 +115,28 @@ struct ProfileEditView: View {
                 saveProfile()
             }
         }
+        .alert("저장 실패", isPresented: $showSaveError) {
+            Button("확인", role: .cancel) {}
+        } message: {
+            Text(saveErrorMessage)
+        }
+    }
+
+    private func loadServerProfile() async {
+        guard authManager.isLoggedIn else { return }
+        isLoadingServerProfile = true
+        do {
+            let serverProfile = try await APIService.shared.getProfile()
+            gender = serverProfile.gender
+            heightText = String(Int(serverProfile.height))
+            weightText = String(format: "%.1f", serverProfile.weight)
+            bodyType = serverProfile.bodyType
+            goal = serverProfile.goal
+            coachStyle = serverProfile.coachStyle
+        } catch {
+            // 서버 프로필 로드 실패 시 로컬 프로필 유지
+        }
+        isLoadingServerProfile = false
     }
 
     private var topBar: some View {
@@ -363,12 +391,33 @@ struct ProfileEditView: View {
         let h = height ?? profile.height
         let w = weight ?? profile.weight
 
+        // 로컬 SwiftData 항상 업데이트 (온보딩에서 사용하므로 유지)
         profile.gender = gender
         profile.height = h
         profile.weight = w
         profile.bodyType = bodyType
         profile.goal = goal
         profile.coachStyle = coachStyle
+
+        // 로그인 시 서버에도 업데이트
+        if authManager.isLoggedIn {
+            let serverProfile = ServerProfile(
+                gender: gender,
+                height: h,
+                weight: w,
+                bodyType: bodyType,
+                goal: goal,
+                coachStyle: coachStyle
+            )
+            Task {
+                do {
+                    _ = try await APIService.shared.updateProfile(serverProfile)
+                } catch {
+                    saveErrorMessage = error.localizedDescription
+                    showSaveError = true
+                }
+            }
+        }
 
         dismiss()
     }

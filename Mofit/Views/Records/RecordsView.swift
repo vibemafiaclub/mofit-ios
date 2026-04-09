@@ -3,14 +3,36 @@ import SwiftUI
 
 struct RecordsView: View {
     @Environment(\.modelContext) private var modelContext
+    @EnvironmentObject var authManager: AuthManager
     @Query private var sessions: [WorkoutSession]
 
     @State private var selectedDate = Date()
     @State private var displayedDates: [Date] = []
+    @State private var serverSessions: [ServerSession] = []
+    @State private var isLoadingServerData = false
+    @State private var showDeleteError = false
+    @State private var deleteErrorMessage = ""
 
     private var filteredSessions: [WorkoutSession] {
         let calendar = Calendar.current
         return sessions.filter { calendar.isDate($0.startedAt, inSameDayAs: selectedDate) }
+    }
+
+    private var filteredServerSessions: [ServerSession] {
+        let calendar = Calendar.current
+        return serverSessions.filter { session in
+            if let date = parseISO8601Date(session.startedAt) {
+                return calendar.isDate(date, inSameDayAs: selectedDate)
+            }
+            return false
+        }
+    }
+
+    private var hasFilteredSessions: Bool {
+        if authManager.isLoggedIn {
+            return !filteredServerSessions.isEmpty
+        }
+        return !filteredSessions.isEmpty
     }
 
     var body: some View {
@@ -27,6 +49,47 @@ struct RecordsView: View {
         .onAppear {
             initializeDates()
         }
+        .task {
+            await loadServerData()
+        }
+        .onChange(of: selectedDate) { _, _ in
+            if authManager.isLoggedIn {
+                Task { await loadServerData() }
+            }
+        }
+        .onChange(of: authManager.isLoggedIn) { _, isLoggedIn in
+            if isLoggedIn {
+                Task { await loadServerData() }
+            } else {
+                serverSessions = []
+            }
+        }
+        .alert("삭제 실패", isPresented: $showDeleteError) {
+            Button("확인", role: .cancel) {}
+        } message: {
+            Text(deleteErrorMessage)
+        }
+    }
+
+    private func loadServerData() async {
+        guard authManager.isLoggedIn else { return }
+        isLoadingServerData = true
+        do {
+            serverSessions = try await APIService.shared.getSessions(date: selectedDate)
+        } catch {
+            serverSessions = []
+        }
+        isLoadingServerData = false
+    }
+
+    private func parseISO8601Date(_ dateString: String) -> Date? {
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        if let date = formatter.date(from: dateString) {
+            return date
+        }
+        formatter.formatOptions = [.withInternetDateTime]
+        return formatter.date(from: dateString)
     }
 
     private var datePickerBar: some View {
@@ -86,22 +149,42 @@ struct RecordsView: View {
 
     private var sessionList: some View {
         Group {
-            if filteredSessions.isEmpty {
+            if !hasFilteredSessions {
                 emptyState
+            } else if authManager.isLoggedIn {
+                serverSessionList
             } else {
-                List {
-                    ForEach(filteredSessions, id: \.id) { session in
-                        sessionCard(for: session)
-                            .listRowBackground(Color.clear)
-                            .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
-                            .listRowSeparator(.hidden)
-                    }
-                    .onDelete(perform: deleteSessions)
-                }
-                .listStyle(.plain)
-                .scrollContentBackground(.hidden)
+                localSessionList
             }
         }
+    }
+
+    private var localSessionList: some View {
+        List {
+            ForEach(filteredSessions, id: \.id) { session in
+                sessionCard(for: session)
+                    .listRowBackground(Color.clear)
+                    .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
+                    .listRowSeparator(.hidden)
+            }
+            .onDelete(perform: deleteSessions)
+        }
+        .listStyle(.plain)
+        .scrollContentBackground(.hidden)
+    }
+
+    private var serverSessionList: some View {
+        List {
+            ForEach(filteredServerSessions, id: \.id) { session in
+                serverSessionCard(for: session)
+                    .listRowBackground(Color.clear)
+                    .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
+                    .listRowSeparator(.hidden)
+            }
+            .onDelete(perform: deleteServerSessions)
+        }
+        .listStyle(.plain)
+        .scrollContentBackground(.hidden)
     }
 
     private var emptyState: some View {
@@ -158,6 +241,56 @@ struct RecordsView: View {
             let session = filteredSessions[index]
             modelContext.delete(session)
         }
+    }
+
+    private func deleteServerSessions(at offsets: IndexSet) {
+        for index in offsets {
+            let session = filteredServerSessions[index]
+            guard let sessionId = session.id else { continue }
+            Task {
+                do {
+                    try await APIService.shared.deleteSession(id: sessionId)
+                    serverSessions.removeAll { $0.id == sessionId }
+                } catch {
+                    deleteErrorMessage = error.localizedDescription
+                    showDeleteError = true
+                }
+            }
+        }
+    }
+
+    private func serverSessionCard(for session: ServerSession) -> some View {
+        let startedAt = parseISO8601Date(session.startedAt) ?? Date()
+        let totalSets = session.repCounts.count
+        let totalReps = session.repCounts.reduce(0, +)
+
+        return HStack(spacing: 16) {
+            Image(systemName: exerciseIcon(for: session.exerciseType))
+                .font(.title2)
+                .foregroundColor(Theme.neonGreen)
+                .frame(width: 44, height: 44)
+                .background(Theme.darkBackground)
+                .cornerRadius(12)
+
+            VStack(alignment: .leading, spacing: 4) {
+                Text(exerciseName(for: session.exerciseType))
+                    .font(.headline)
+                    .foregroundColor(Theme.textPrimary)
+
+                Text("\(totalSets)세트 · \(totalReps)회 · \(formatDuration(session.totalDuration))")
+                    .font(.subheadline)
+                    .foregroundColor(Theme.textSecondary)
+            }
+
+            Spacer()
+
+            Text(formatTime(startedAt))
+                .font(.caption)
+                .foregroundColor(Theme.textSecondary)
+        }
+        .padding(16)
+        .background(Theme.cardBackground)
+        .cornerRadius(16)
     }
 
     private func exerciseIcon(for type: String) -> String {

@@ -12,21 +12,47 @@ struct CoachingView: View {
     @State private var expandedFeedbackId: UUID?
     @State private var showLogin = false
     @State private var showSignUp = false
+    @State private var serverFeedbacks: [ServerFeedback] = []
+    @State private var expandedServerFeedbackId: String?
+    @State private var isLoadingServerData = false
 
     private var profile: UserProfile? {
         profiles.first
     }
 
     private var todayUsageCount: Int {
-        viewModel.todayUsageCount(feedbacks: feedbacks)
+        if authManager.isLoggedIn {
+            return serverFeedbacks.filter { isToday(dateString: $0.date) }.count
+        }
+        return viewModel.todayUsageCount(feedbacks: feedbacks)
     }
 
     private var hasUsedPre: Bool {
-        viewModel.hasUsedToday(type: "pre", feedbacks: feedbacks)
+        if authManager.isLoggedIn {
+            return serverFeedbacks.contains { $0.type == "pre" && isToday(dateString: $0.date) }
+        }
+        return viewModel.hasUsedToday(type: "pre", feedbacks: feedbacks)
     }
 
     private var hasUsedPost: Bool {
-        viewModel.hasUsedToday(type: "post", feedbacks: feedbacks)
+        if authManager.isLoggedIn {
+            return serverFeedbacks.contains { $0.type == "post" && isToday(dateString: $0.date) }
+        }
+        return viewModel.hasUsedToday(type: "post", feedbacks: feedbacks)
+    }
+
+    private func isToday(dateString: String) -> Bool {
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withFullDate]
+        if let date = formatter.date(from: dateString) {
+            return Calendar.current.isDateInToday(date)
+        }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        if let date = dateFormatter.date(from: dateString) {
+            return Calendar.current.isDateInToday(date)
+        }
+        return false
     }
 
     var body: some View {
@@ -40,8 +66,24 @@ struct CoachingView: View {
             }
         }
         .onAppear {
-            if let firstFeedback = feedbacks.first {
-                expandedFeedbackId = firstFeedback.id
+            if authManager.isLoggedIn {
+                if let firstFeedback = serverFeedbacks.first {
+                    expandedServerFeedbackId = firstFeedback.id
+                }
+            } else {
+                if let firstFeedback = feedbacks.first {
+                    expandedFeedbackId = firstFeedback.id
+                }
+            }
+        }
+        .task {
+            await loadServerFeedbacks()
+        }
+        .onChange(of: authManager.isLoggedIn) { _, isLoggedIn in
+            if isLoggedIn {
+                Task { await loadServerFeedbacks() }
+            } else {
+                serverFeedbacks = []
             }
         }
         .fullScreenCover(isPresented: $showLogin) {
@@ -54,6 +96,21 @@ struct CoachingView: View {
                     .environmentObject(authManager)
             }
         }
+    }
+
+    private func loadServerFeedbacks() async {
+        guard authManager.isLoggedIn else { return }
+        isLoadingServerData = true
+        do {
+            serverFeedbacks = try await APIService.shared.getFeedbacks(date: nil)
+            serverFeedbacks.sort { ($0.createdAt ?? "") > ($1.createdAt ?? "") }
+            if let first = serverFeedbacks.first {
+                expandedServerFeedbackId = first.id
+            }
+        } catch {
+            serverFeedbacks = []
+        }
+        isLoadingServerData = false
     }
 
     private var loggedInContent: some View {
@@ -203,19 +260,40 @@ struct CoachingView: View {
     private func requestFeedback(type: String) async {
         guard let profile = profile else { return }
 
-        let _ = await viewModel.requestFeedback(
-            type: type,
-            userProfile: profile,
-            workoutSessions: Array(sessions),
-            modelContext: modelContext
-        )
+        if authManager.isLoggedIn {
+            let result = await viewModel.requestFeedbackFromServer(
+                type: type,
+                userProfile: profile,
+                workoutSessions: Array(sessions)
+            )
+            if result != nil {
+                await loadServerFeedbacks()
+            }
+        } else {
+            let _ = await viewModel.requestFeedback(
+                type: type,
+                userProfile: profile,
+                workoutSessions: Array(sessions),
+                modelContext: modelContext
+            )
 
-        if let firstFeedback = feedbacks.first {
-            expandedFeedbackId = firstFeedback.id
+            if let firstFeedback = feedbacks.first {
+                expandedFeedbackId = firstFeedback.id
+            }
         }
     }
 
     private var feedbackList: some View {
+        Group {
+            if authManager.isLoggedIn {
+                serverFeedbackList
+            } else {
+                localFeedbackList
+            }
+        }
+    }
+
+    private var localFeedbackList: some View {
         Group {
             if feedbacks.isEmpty {
                 emptyState
@@ -235,6 +313,82 @@ struct CoachingView: View {
                 }
             }
         }
+    }
+
+    private var serverFeedbackList: some View {
+        Group {
+            if serverFeedbacks.isEmpty {
+                emptyState
+            } else {
+                ScrollView {
+                    LazyVStack(spacing: 12) {
+                        if let errorMessage = viewModel.errorMessage {
+                            errorCard(message: errorMessage)
+                        }
+
+                        ForEach(serverFeedbacks, id: \.id) { feedback in
+                            serverFeedbackCard(for: feedback)
+                        }
+                    }
+                    .padding(.horizontal)
+                    .padding(.bottom, 32)
+                }
+            }
+        }
+    }
+
+    private func serverFeedbackCard(for feedback: ServerFeedback) -> some View {
+        let isExpanded = expandedServerFeedbackId == feedback.id
+
+        return Button {
+            withAnimation(.easeInOut(duration: 0.2)) {
+                if isExpanded {
+                    expandedServerFeedbackId = nil
+                } else {
+                    expandedServerFeedbackId = feedback.id
+                }
+            }
+        } label: {
+            VStack(alignment: .leading, spacing: 12) {
+                HStack {
+                    Text(formatServerDate(feedback.date))
+                        .font(.subheadline)
+                        .foregroundColor(Theme.textSecondary)
+
+                    typeBadge(for: feedback.type)
+
+                    Spacer()
+
+                    Image(systemName: isExpanded ? "chevron.up" : "chevron.down")
+                        .font(.caption)
+                        .foregroundColor(Theme.textSecondary)
+                }
+
+                if isExpanded {
+                    Text(feedback.content)
+                        .font(.body)
+                        .foregroundColor(Theme.textPrimary)
+                        .multilineTextAlignment(.leading)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+            }
+            .padding(16)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(Theme.cardBackground)
+            .cornerRadius(16)
+        }
+        .buttonStyle(.plain)
+    }
+
+    private func formatServerDate(_ dateString: String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        if let date = dateFormatter.date(from: dateString) {
+            let outputFormatter = DateFormatter()
+            outputFormatter.dateFormat = "yyyy.MM.dd"
+            return outputFormatter.string(from: date)
+        }
+        return dateString
     }
 
     private var emptyState: some View {

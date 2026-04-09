@@ -19,6 +19,7 @@ final class TrackingViewModel: ObservableObject {
     @Published var elapsedTime: Int = 0
     @Published var jointPoints: [CGPoint] = []
     @Published var repCounts: [Int] = []
+    @Published var saveError: String?
 
     private let cameraManager: CameraManager
     private let poseDetectionService = PoseDetectionService()
@@ -107,7 +108,7 @@ final class TrackingViewModel: ObservableObject {
         cameraManager.startSession()
     }
 
-    func stopSession(modelContext: ModelContext) {
+    func stopSession(modelContext: ModelContext, isLoggedIn: Bool) {
         cameraManager.stopSession()
         countdownTimer?.invalidate()
         countdownTimer = nil
@@ -118,11 +119,34 @@ final class TrackingViewModel: ObservableObject {
             repCounts.append(currentReps)
         }
 
-        if !repCounts.isEmpty {
+        guard !repCounts.isEmpty else { return }
+
+        let startedAt = sessionStartTime ?? Date()
+        let endedAt = Date()
+
+        if isLoggedIn {
+            let formatter = ISO8601DateFormatter()
+            formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+            let serverSession = ServerSession(
+                id: nil,
+                exerciseType: exerciseType,
+                startedAt: formatter.string(from: startedAt),
+                endedAt: formatter.string(from: endedAt),
+                totalDuration: elapsedTime,
+                repCounts: repCounts
+            )
+            Task {
+                do {
+                    _ = try await APIService.shared.createSession(serverSession)
+                } catch {
+                    saveError = error.localizedDescription
+                }
+            }
+        } else {
             let session = WorkoutSession(
                 exerciseType: exerciseType,
-                startedAt: sessionStartTime ?? Date(),
-                endedAt: Date(),
+                startedAt: startedAt,
+                endedAt: endedAt,
                 totalDuration: elapsedTime,
                 repCounts: repCounts
             )
