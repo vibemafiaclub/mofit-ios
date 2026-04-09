@@ -3,12 +3,15 @@ import SwiftUI
 
 struct CoachingView: View {
     @Environment(\.modelContext) private var modelContext
+    @EnvironmentObject var authManager: AuthManager
     @Query(sort: \CoachingFeedback.createdAt, order: .reverse) private var feedbacks: [CoachingFeedback]
     @Query private var profiles: [UserProfile]
     @Query private var sessions: [WorkoutSession]
 
     @StateObject private var viewModel = CoachingViewModel()
     @State private var expandedFeedbackId: UUID?
+    @State private var showLogin = false
+    @State private var showSignUp = false
 
     private var profile: UserProfile? {
         profiles.first
@@ -30,23 +33,92 @@ struct CoachingView: View {
         ZStack {
             Theme.darkBackground.ignoresSafeArea()
 
-            VStack(spacing: 0) {
-                headerSection
-                    .padding(.horizontal)
-                    .padding(.top, 16)
-
-                buttonSection
-                    .padding(.horizontal)
-                    .padding(.top, 24)
-
-                feedbackList
-                    .padding(.top, 24)
+            if authManager.isLoggedIn {
+                loggedInContent
+            } else {
+                notLoggedInContent
             }
         }
         .onAppear {
             if let firstFeedback = feedbacks.first {
                 expandedFeedbackId = firstFeedback.id
             }
+        }
+        .fullScreenCover(isPresented: $showLogin) {
+            LoginView()
+                .environmentObject(authManager)
+        }
+        .fullScreenCover(isPresented: $showSignUp) {
+            NavigationStack {
+                SignUpView()
+                    .environmentObject(authManager)
+            }
+        }
+    }
+
+    private var loggedInContent: some View {
+        VStack(spacing: 0) {
+            headerSection
+                .padding(.horizontal)
+                .padding(.top, 16)
+
+            buttonSection
+                .padding(.horizontal)
+                .padding(.top, 24)
+
+            feedbackList
+                .padding(.top, 24)
+        }
+    }
+
+    private var notLoggedInContent: some View {
+        VStack(spacing: 24) {
+            Spacer()
+
+            Image(systemName: "brain.head.profile")
+                .font(.system(size: 80))
+                .foregroundColor(Theme.neonGreen)
+
+            Text("AI 코칭은 로그인 후\n사용할 수 있어요")
+                .font(.title2)
+                .fontWeight(.semibold)
+                .foregroundColor(Theme.textPrimary)
+                .multilineTextAlignment(.center)
+
+            VStack(spacing: 12) {
+                Button {
+                    showLogin = true
+                } label: {
+                    Text("로그인")
+                        .font(.headline)
+                        .fontWeight(.semibold)
+                        .foregroundColor(Theme.darkBackground)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 56)
+                        .background(Theme.neonGreen)
+                        .cornerRadius(16)
+                }
+
+                Button {
+                    showSignUp = true
+                } label: {
+                    Text("회원가입")
+                        .font(.headline)
+                        .fontWeight(.semibold)
+                        .foregroundColor(Theme.neonGreen)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 56)
+                        .background(Color.clear)
+                        .cornerRadius(16)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 16)
+                                .stroke(Theme.neonGreen, lineWidth: 2)
+                        )
+                }
+            }
+            .padding(.horizontal, 32)
+
+            Spacer()
         }
     }
 
