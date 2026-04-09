@@ -26,6 +26,9 @@
 		8B684CD65145369C7C2FFCB8 /* CoachingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B4FC2D59300586B765871D4 /* CoachingViewModel.swift */; };
 		96EFA1EBD9682AADCD21DD5D /* WorkoutSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C63EA4E638B27B2DADD3EA /* WorkoutSession.swift */; };
 		9C994E3281C4CB9F30838AA7 /* CoachingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6404E727F43F13BC9E2BA38 /* CoachingView.swift */; };
+		BBBB0001BBBB0001BBBB0001 /* ExerciseCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA0001AAAA0001AAAA0001 /* ExerciseCounter.swift */; };
+		BBBB0002BBBB0002BBBB0002 /* PushUpCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA0002AAAA0002AAAA0002 /* PushUpCounter.swift */; };
+		BBBB0003BBBB0003BBBB0003 /* SitUpCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA0003AAAA0003AAAA0003 /* SitUpCounter.swift */; };
 		C1B84A4F28079F66C472B3E3 /* PoseDetectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B473B4153DEB5184CD1DF3B /* PoseDetectionService.swift */; };
 		CE3869E8362AB00FBC1D12D7 /* SwiftData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01CAF0F33617545D6CFC1B30 /* SwiftData.framework */; };
 		DD38B3EBA35F9251B888AF89 /* TrackingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A853CA7EFE44584A6601A1BA /* TrackingViewModel.swift */; };
@@ -33,9 +36,6 @@
 		E1F4BBE70C968CD633DAF968 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFD763970F385A2ACEF4378B /* AVFoundation.framework */; };
 		EBD474B9931DADC6EF009DA5 /* Vision.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD6BDED53C67924AFC395DBF /* Vision.framework */; };
 		EFA5A622083309D15229B947 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FD0106B1C899177F7A304F5 /* HomeView.swift */; };
-		BBBB0001BBBB0001BBBB0001 /* ExerciseCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA0001AAAA0001AAAA0001 /* ExerciseCounter.swift */; };
-		BBBB0002BBBB0002BBBB0002 /* PushUpCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA0002AAAA0002AAAA0002 /* PushUpCounter.swift */; };
-		BBBB0003BBBB0003BBBB0003 /* SitUpCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA0003AAAA0003AAAA0003 /* SitUpCounter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,15 +60,15 @@
 		A0EF3318085666DEC44477C3 /* ClaudeAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClaudeAPIService.swift; sourceTree = "<group>"; };
 		A853CA7EFE44584A6601A1BA /* TrackingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingViewModel.swift; sourceTree = "<group>"; };
 		AA180531E041D0064A4E1BD6 /* HandDetectionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HandDetectionService.swift; sourceTree = "<group>"; };
-		AAF026B1546FA243B6007EB4 /* Mofit.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Mofit.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AAAA0001AAAA0001AAAA0001 /* ExerciseCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCounter.swift; sourceTree = "<group>"; };
+		AAAA0002AAAA0002AAAA0002 /* PushUpCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushUpCounter.swift; sourceTree = "<group>"; };
+		AAAA0003AAAA0003AAAA0003 /* SitUpCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SitUpCounter.swift; sourceTree = "<group>"; };
+		AAF026B1546FA243B6007EB4 /* Mofit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mofit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFD763970F385A2ACEF4378B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		D4B469CE7D4368EF6D89E602 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		EA6926B00BCAFB4148B2CE7F /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		F6404E727F43F13BC9E2BA38 /* CoachingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachingView.swift; sourceTree = "<group>"; };
 		FD6BDED53C67924AFC395DBF /* Vision.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Vision.framework; path = System/Library/Frameworks/Vision.framework; sourceTree = SDKROOT; };
-		AAAA0001AAAA0001AAAA0001 /* ExerciseCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCounter.swift; sourceTree = "<group>"; };
-		AAAA0002AAAA0002AAAA0002 /* PushUpCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushUpCounter.swift; sourceTree = "<group>"; };
-		AAAA0003AAAA0003AAAA0003 /* SitUpCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SitUpCounter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -287,8 +287,6 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1500;
-				TargetAttributes = {
-				};
 			};
 			buildConfigurationList = 6939A7AC177BF34008D99B26 /* Build configuration list for PBXProject "Mofit" */;
 			developmentRegion = en;
@@ -414,6 +412,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = GJNZA5JQUK;
 				INFOPLIST_KEY_NSCameraUsageDescription = "운동 자세를 추적하기 위해 카메라가 필요합니다";
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -423,7 +422,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mofit.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mofit.appp;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -491,6 +490,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = GJNZA5JQUK;
 				INFOPLIST_KEY_NSCameraUsageDescription = "운동 자세를 추적하기 위해 카메라가 필요합니다";
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -500,7 +500,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mofit.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mofit.appp;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
