@@ -4,9 +4,11 @@ import SwiftUI
 struct TrackingView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject var authManager: AuthManager
     let exerciseType: String
     @StateObject private var viewModel: TrackingViewModel
     @Binding var showConfetti: Bool
+    @State private var showSaveError = false
 
     init(exerciseType: String, showConfetti: Binding<Bool>) {
         self.exerciseType = exerciseType
@@ -45,6 +47,16 @@ struct TrackingView: View {
         }
         .preferredColorScheme(.dark)
         .statusBarHidden()
+        .alert("저장 실패", isPresented: $showSaveError) {
+            Button("확인", role: .cancel) {}
+        } message: {
+            Text(viewModel.saveError ?? "운동 기록 저장에 실패했습니다")
+        }
+        .onChange(of: viewModel.saveError) { _, error in
+            if error != nil {
+                showSaveError = true
+            }
+        }
     }
 
     @ViewBuilder
@@ -146,7 +158,7 @@ struct TrackingView: View {
 
     private var stopButton: some View {
         Button {
-            viewModel.stopSession(modelContext: modelContext)
+            viewModel.stopSession(modelContext: modelContext, isLoggedIn: authManager.isLoggedIn)
             showConfetti = true
             dismiss()
         } label: {

@@ -50,6 +50,31 @@ final class CoachingViewModel: ObservableObject {
         }
     }
 
+    func requestFeedbackFromServer(
+        type: String,
+        userProfile: UserProfile,
+        workoutSessions: [WorkoutSession]
+    ) async -> String? {
+        isLoading = true
+        errorMessage = nil
+
+        let prompt = buildPrompt(type: type, userProfile: userProfile, sessions: workoutSessions)
+
+        do {
+            let feedback = try await APIService.shared.requestCoaching(prompt: prompt, type: type)
+            isLoading = false
+            return feedback.content
+        } catch {
+            isLoading = false
+            if let apiError = error as? APIError {
+                errorMessage = apiError.localizedDescription
+            } else {
+                errorMessage = "피드백을 받아오지 못했습니다"
+            }
+            return nil
+        }
+    }
+
     func hasUsedToday(type: String, feedbacks: [CoachingFeedback]) -> Bool {
         feedbacks.contains { feedback in
             feedback.type == type && Calendar.current.isDateInToday(feedback.date)

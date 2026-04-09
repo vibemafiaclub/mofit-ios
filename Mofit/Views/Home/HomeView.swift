@@ -8,6 +8,8 @@ struct HomeView: View {
     @Query private var sessions: [WorkoutSession]
 
     @State private var selectedExerciseName = "스쿼트"
+    @State private var serverSessions: [ServerSession] = []
+    @State private var isLoadingServerData = false
 
     private static let exerciseNameToType: [String: String] = [
         "스쿼트": "squat",
@@ -29,16 +31,43 @@ struct HomeView: View {
         return sessions.filter { calendar.isDate($0.startedAt, inSameDayAs: startOfDay) }
     }
 
+    private var todayServerSessions: [ServerSession] {
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: Date())
+        return serverSessions.filter { session in
+            if let date = parseISO8601Date(session.startedAt) {
+                return calendar.isDate(date, inSameDayAs: today)
+            }
+            return false
+        }
+    }
+
     private var todayTotalSets: Int {
-        todaySessions.reduce(0) { $0 + $1.totalSets }
+        if authManager.isLoggedIn {
+            return todayServerSessions.reduce(0) { $0 + $1.repCounts.count }
+        }
+        return todaySessions.reduce(0) { $0 + $1.totalSets }
     }
 
     private var todayTotalReps: Int {
-        todaySessions.reduce(0) { $0 + $1.totalReps }
+        if authManager.isLoggedIn {
+            return todayServerSessions.reduce(0) { $0 + $1.repCounts.reduce(0, +) }
+        }
+        return todaySessions.reduce(0) { $0 + $1.totalReps }
     }
 
     private var todayTotalDuration: Int {
-        todaySessions.reduce(0) { $0 + $1.totalDuration }
+        if authManager.isLoggedIn {
+            return todayServerSessions.reduce(0) { $0 + $1.totalDuration }
+        }
+        return todaySessions.reduce(0) { $0 + $1.totalDuration }
+    }
+
+    private var hasTodaySessions: Bool {
+        if authManager.isLoggedIn {
+            return !todayServerSessions.isEmpty
+        }
+        return !todaySessions.isEmpty
     }
 
     var body: some View {
@@ -87,7 +116,44 @@ struct HomeView: View {
         }
         .fullScreenCover(isPresented: $showTracking) {
             TrackingView(exerciseType: selectedExerciseType, showConfetti: $showConfetti)
+                .environmentObject(authManager)
         }
+        .task {
+            await loadServerData()
+        }
+        .onChange(of: authManager.isLoggedIn) { _, isLoggedIn in
+            if isLoggedIn {
+                Task { await loadServerData() }
+            } else {
+                serverSessions = []
+            }
+        }
+        .onChange(of: showTracking) { _, isShowing in
+            if !isShowing && authManager.isLoggedIn {
+                Task { await loadServerData() }
+            }
+        }
+    }
+
+    private func loadServerData() async {
+        guard authManager.isLoggedIn else { return }
+        isLoadingServerData = true
+        do {
+            serverSessions = try await APIService.shared.getSessions(date: nil)
+        } catch {
+            serverSessions = []
+        }
+        isLoadingServerData = false
+    }
+
+    private func parseISO8601Date(_ dateString: String) -> Date? {
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        if let date = formatter.date(from: dateString) {
+            return date
+        }
+        formatter.formatOptions = [.withInternetDateTime]
+        return formatter.date(from: dateString)
     }
 
     private var topBar: some View {
@@ -163,7 +229,7 @@ struct HomeView: View {
                 }
             }
 
-            if todaySessions.isEmpty {
+            if !hasTodaySessions {
                 Text("첫 운동을 시작해보세요!")
                     .font(.subheadline)
                     .foregroundColor(Theme.textSecondary)
