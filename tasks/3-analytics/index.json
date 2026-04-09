@@ -1,0 +1,12 @@
+{
+  "project": "mofit-ios",
+  "task": "analytics",
+  "prompt": "유저 행동분석 로그 적당히 심고싶거든? plan-and-build 사용해서 구체화해보자. 난 지금 무슨 기술 써야할지도 모르는 상태야. 너가 적당히 추천해줘야돼. 참고로 기술을 선택할때는 최대한 내 개입없이 너가 알아서 cli로 다 설정할 수 있는거로 택하면 좋을거 같아. 그리고 유명하고 사람들이 많이 쓰는 기술을 쓰면 좋겠어. 난 버그 없이 깔끔하게 잘 완성되는걸 정말 중요시해. 이걸 참고해줘. 아 그리고 얼마나 행동분석로그를 심을지도 아직 안 정했거든? 너가 알아서 적절한 수준으로 전문가처럼 잘 정해줘야돼. 우리가 mvp 단계인거 잊지말고.",
+  "totalPhases": 3,
+  "created_at": "2026-04-09T22:57:00+0900",
+  "phases": [
+    { "phase": 0, "name": "docs-update", "status": "pending" },
+    { "phase": 1, "name": "sdk-setup", "status": "pending" },
+    { "phase": 2, "name": "event-instrumentation", "status": "pending" }
+  ]
+}
