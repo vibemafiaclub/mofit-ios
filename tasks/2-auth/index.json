@@ -59,7 +59,9 @@
     {
       "phase": 7,
       "name": "ios-integration",
-      "status": "pending"
+      "status": "completed",
+      "started_at": "2026-04-09T22:11:37+0900",
+      "completed_at": "2026-04-09T22:35:00+0900"
     },
     {
       "phase": 8,
