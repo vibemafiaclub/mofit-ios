@@ -1,0 +1,18 @@
+{
+  "project": "mofit-ios",
+  "task": "auth",
+  "prompt": "난 로그인 기능을 이 앱에 붙이고싶어. 사용자가 ai 코칭 탭에 접속하면, 로그인이 되어있지않은 경우 '로그인 후 사용할 수 있음' 과 같은 안내를 하는 UI가 표시된다. 로그인한 사용자에 대해선, 모든 데이터를 불러오고 쓰는 과정이 데이터베이스를 통해 일어난다. 비로그인 사용자에 대해선, 여전히 앱을 사용할 수 있으며 모든 데이터가 기기에 저장된다. ai 코칭 기능은 사용할 수 없다. 서버는 railway에 배포하고, 데이터베이스는 supabase를 쓴다. id/비밀번호로 단순 로그인만 지원. 비밀번호 찾기 없음.",
+  "totalPhases": 9,
+  "created_at": "2026-04-09T21:20:00+0900",
+  "phases": [
+    { "phase": 0, "name": "docs-update", "status": "pending" },
+    { "phase": 1, "name": "db-schema", "status": "pending" },
+    { "phase": 2, "name": "server-auth", "status": "pending" },
+    { "phase": 3, "name": "server-crud", "status": "pending" },
+    { "phase": 4, "name": "server-deploy", "status": "pending" },
+    { "phase": 5, "name": "ios-networking", "status": "pending" },
+    { "phase": 6, "name": "ios-auth-ui", "status": "pending" },
+    { "phase": 7, "name": "ios-integration", "status": "pending" },
+    { "phase": 8, "name": "build-verify", "status": "pending" }
+  ]
+}

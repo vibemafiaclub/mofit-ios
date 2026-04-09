@@ -7,6 +7,13 @@
       "status": "completed",
       "created_at": "2026-04-01T21:36:00+0900",
       "completed_at": "2026-04-01T22:08:39+0900"
+    },
+    {
+      "id": 2,
+      "name": "auth",
+      "dir": "2-auth",
+      "status": "pending",
+      "created_at": "2026-04-09T21:20:00+0900"
     }
   ]
 }
