@@ -66,6 +66,7 @@ final class AuthManager: ObservableObject {
             KeychainService.save(token: authResponse.token)
             isLoggedIn = true
             currentUser = authResponse.user
+            onAuthStateChanged?()
         } else {
             if let errorResponse = try? JSONDecoder().decode(AuthErrorResponse.self, from: data) {
                 throw AuthError.serverError(errorResponse.error)
@@ -103,9 +104,12 @@ final class AuthManager: ObservableObject {
         }
     }
 
+    var onAuthStateChanged: (() -> Void)?
+
     func logout() {
         KeychainService.deleteToken()
         isLoggedIn = false
         currentUser = nil
+        onAuthStateChanged?()
     }
 }

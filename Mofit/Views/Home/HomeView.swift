@@ -92,6 +92,9 @@ struct HomeView: View {
                     }
                     .padding(.bottom, 32)
                 }
+                .refreshable {
+                    await loadServerData()
+                }
             }
 
             if showConfetti {

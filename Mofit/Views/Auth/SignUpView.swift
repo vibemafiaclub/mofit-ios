@@ -9,6 +9,7 @@ struct SignUpView: View {
     @State private var confirmPassword = ""
     @State private var isLoading = false
     @State private var errorMessage: String?
+    @State private var showSuccessMessage = false
 
     private var isEmailValid: Bool {
         !email.isEmpty && email.contains("@")
@@ -152,9 +153,16 @@ struct SignUpView: View {
             }
         }
         .onChange(of: authManager.isLoggedIn) { _, isLoggedIn in
-            if isLoggedIn {
+            if isLoggedIn && !showSuccessMessage {
                 dismiss()
             }
+        }
+        .alert("가입 완료", isPresented: $showSuccessMessage) {
+            Button("확인") {
+                dismiss()
+            }
+        } message: {
+            Text("회원가입이 완료되었습니다!")
         }
     }
 
@@ -164,6 +172,7 @@ struct SignUpView: View {
 
         do {
             try await authManager.signup(email: email, password: password)
+            showSuccessMessage = true
         } catch {
             errorMessage = error.localizedDescription
         }

@@ -29,6 +29,11 @@ struct TrackingView: View {
                     jointOverlay
                 }
 
+                closeButton
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                    .padding(.top, 60)
+                    .padding(.leading, 20)
+
                 stopButton
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
                     .padding(.bottom, 60)
@@ -154,6 +159,21 @@ struct TrackingView: View {
             }
         }
         .allowsHitTesting(false)
+    }
+
+    private var closeButton: some View {
+        Button {
+            viewModel.stopSession(modelContext: modelContext, isLoggedIn: authManager.isLoggedIn)
+            dismiss()
+        } label: {
+            Image(systemName: "xmark")
+                .font(.title3)
+                .fontWeight(.semibold)
+                .foregroundColor(.white)
+                .frame(width: 44, height: 44)
+                .background(Color.black.opacity(0.6))
+                .clipShape(Circle())
+        }
     }
 
     private var stopButton: some View {
