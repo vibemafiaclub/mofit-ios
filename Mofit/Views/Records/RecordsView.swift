@@ -48,6 +48,7 @@ struct RecordsView: View {
         }
         .onAppear {
             initializeDates()
+            AnalyticsService.shared.track(.screenViewed, properties: ["screen_name": "records"])
         }
         .task {
             await loadServerData()

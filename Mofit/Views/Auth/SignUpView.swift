@@ -164,6 +164,9 @@ struct SignUpView: View {
         } message: {
             Text("회원가입이 완료되었습니다!")
         }
+        .onAppear {
+            AnalyticsService.shared.track(.screenViewed, properties: ["screen_name": "sign_up"])
+        }
     }
 
     private func signUp() async {
@@ -172,6 +175,7 @@ struct SignUpView: View {
 
         do {
             try await authManager.signup(email: email, password: password)
+            AnalyticsService.shared.track(.signUp)
             showSuccessMessage = true
         } catch {
             errorMessage = error.localizedDescription

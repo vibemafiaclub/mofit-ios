@@ -124,6 +124,9 @@ struct HomeView: View {
         .task {
             await loadServerData()
         }
+        .onAppear {
+            AnalyticsService.shared.track(.screenViewed, properties: ["screen_name": "home"])
+        }
         .onChange(of: authManager.isLoggedIn) { _, isLoggedIn in
             if isLoggedIn {
                 Task { await loadServerData() }

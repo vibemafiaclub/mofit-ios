@@ -99,6 +99,7 @@ struct ProfileEditView: View {
         }
         .onAppear {
             loadProfile()
+            AnalyticsService.shared.track(.screenViewed, properties: ["screen_name": "profile_edit"])
         }
         .task {
             await loadServerProfile()

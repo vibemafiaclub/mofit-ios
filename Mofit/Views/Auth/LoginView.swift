@@ -107,6 +107,9 @@ struct LoginView: View {
                 dismiss()
             }
         }
+        .onAppear {
+            AnalyticsService.shared.track(.screenViewed, properties: ["screen_name": "login"])
+        }
     }
 
     private func login() async {
@@ -115,6 +118,7 @@ struct LoginView: View {
 
         do {
             try await authManager.login(email: email, password: password)
+            AnalyticsService.shared.track(.login)
         } catch {
             errorMessage = error.localizedDescription
         }

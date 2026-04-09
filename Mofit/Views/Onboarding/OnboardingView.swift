@@ -122,6 +122,10 @@ struct OnboardingView: View {
                 }
             }
         }
+        .onAppear {
+            AnalyticsService.shared.track(.onboardingStarted)
+            AnalyticsService.shared.track(.screenViewed, properties: ["screen_name": "onboarding"])
+        }
     }
 
     private var genderSelectionView: some View {
@@ -408,6 +412,7 @@ struct OnboardingView: View {
             modelContext.insert(newProfile)
         }
 
+        AnalyticsService.shared.track(.onboardingCompleted)
         onboardingCompleted = true
     }
 }

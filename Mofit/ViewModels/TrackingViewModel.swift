@@ -119,6 +119,21 @@ final class TrackingViewModel: ObservableObject {
             repCounts.append(currentReps)
         }
 
+        let totalReps = repCounts.reduce(0, +)
+        if totalReps > 0 {
+            AnalyticsService.shared.track(.workoutCompleted, properties: [
+                "exercise_type": exerciseType,
+                "total_reps": totalReps,
+                "duration_seconds": elapsedTime,
+                "set_count": repCounts.count
+            ])
+        } else if hasStartedElapsedTimer {
+            AnalyticsService.shared.track(.workoutCancelled, properties: [
+                "exercise_type": exerciseType,
+                "elapsed_seconds": elapsedTime
+            ])
+        }
+
         guard !repCounts.isEmpty else { return }
 
         let startedAt = sessionStartTime ?? Date()
@@ -203,6 +218,7 @@ final class TrackingViewModel: ObservableObject {
             hasStartedElapsedTimer = true
             sessionStartTime = Date()
             startElapsedTimer()
+            AnalyticsService.shared.track(.workoutStarted, properties: ["exercise_type": exerciseType])
         }
 
         countdownTimer?.invalidate()

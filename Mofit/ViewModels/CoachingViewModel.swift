@@ -18,6 +18,7 @@ final class CoachingViewModel: ObservableObject {
             return "아직 운동 기록이 없어서 피드백을 드리기 어려워요"
         }
 
+        AnalyticsService.shared.track(.coachingRequested, properties: ["type": type])
         isLoading = true
         errorMessage = nil
 
@@ -25,6 +26,7 @@ final class CoachingViewModel: ObservableObject {
 
         do {
             let response = try await apiService.requestFeedback(prompt: prompt)
+            AnalyticsService.shared.track(.coachingReceived, properties: ["type": type])
 
             let feedback = CoachingFeedback(
                 date: Date(),
@@ -55,6 +57,7 @@ final class CoachingViewModel: ObservableObject {
         userProfile: UserProfile,
         workoutSessions: [WorkoutSession]
     ) async -> String? {
+        AnalyticsService.shared.track(.coachingRequested, properties: ["type": type])
         isLoading = true
         errorMessage = nil
 
@@ -62,6 +65,7 @@ final class CoachingViewModel: ObservableObject {
 
         do {
             let feedback = try await APIService.shared.requestCoaching(prompt: prompt, type: type)
+            AnalyticsService.shared.track(.coachingReceived, properties: ["type": type])
             isLoading = false
             return feedback.content
         } catch {

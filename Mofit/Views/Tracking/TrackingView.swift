@@ -42,6 +42,7 @@ struct TrackingView: View {
                 viewModel.viewSize = geometry.size
                 UIApplication.shared.isIdleTimerDisabled = true
                 viewModel.startSession()
+                AnalyticsService.shared.track(.screenViewed, properties: ["screen_name": "tracking"])
             }
             .onDisappear {
                 UIApplication.shared.isIdleTimerDisabled = false

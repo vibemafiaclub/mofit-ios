@@ -66,6 +66,7 @@ struct CoachingView: View {
             }
         }
         .onAppear {
+            AnalyticsService.shared.track(.screenViewed, properties: ["screen_name": "coaching"])
             if authManager.isLoggedIn {
                 if let firstFeedback = serverFeedbacks.first {
                     expandedServerFeedbackId = firstFeedback.id
