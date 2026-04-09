@@ -52,10 +52,8 @@ struct RecordsView: View {
         .task {
             await loadServerData()
         }
-        .onChange(of: selectedDate) { _, _ in
-            if authManager.isLoggedIn {
-                Task { await loadServerData() }
-            }
+        .refreshable {
+            await loadServerData()
         }
         .onChange(of: authManager.isLoggedIn) { _, isLoggedIn in
             if isLoggedIn {
@@ -75,7 +73,7 @@ struct RecordsView: View {
         guard authManager.isLoggedIn else { return }
         isLoadingServerData = true
         do {
-            serverSessions = try await APIService.shared.getSessions(date: selectedDate)
+            serverSessions = try await APIService.shared.getSessions(date: nil)
         } catch {
             serverSessions = []
         }
