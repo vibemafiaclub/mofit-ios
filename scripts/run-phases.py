@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-agentinc phase runner.
+cc-company phase runner.
 Reads tasks/{task-dir}/index.json, finds the next pending phase,
 spawns a Claude Code session with the phase prompt, and updates status.
 
@@ -19,7 +19,7 @@ from datetime import datetime, timezone, timedelta
 from pathlib import Path
 from typing import Optional
 
-from _utils import find_project_root, resolve_gh_env
+from _utils import find_project_root
 
 ROOT = find_project_root()
 TASKS_DIR = ROOT / "tasks"
@@ -35,6 +35,78 @@ SPINNER_CHARS = "⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏"
 # ---------------------------------------------------------------------------
 # Utilities
 # ---------------------------------------------------------------------------
+
+_gh_cache: dict = {"gh_user": None, "token": None,
+                   "name": None, "email": None, "expires_at": 0}
+
+
+def resolve_gh_env(gh_user: Optional[str]) -> dict[str, str]:
+    """Resolve GitHub profile for gh_user and return environment variables."""
+    if gh_user is None:
+        return {}
+
+    global _gh_cache
+
+    # Check cache
+    if (
+        _gh_cache["gh_user"] == gh_user
+        and time.time() < _gh_cache["expires_at"]
+    ):
+        return {
+            "GH_TOKEN": _gh_cache["token"],
+            "GIT_AUTHOR_NAME": _gh_cache["name"],
+            "GIT_AUTHOR_EMAIL": _gh_cache["email"],
+            "GIT_COMMITTER_NAME": _gh_cache["name"],
+            "GIT_COMMITTER_EMAIL": _gh_cache["email"],
+        }
+
+    # Cache miss: resolve token
+    result = subprocess.run(
+        ["gh", "auth", "token", "--user", gh_user],
+        capture_output=True,
+        text=True,
+    )
+    if result.returncode != 0:
+        print(
+            f"ERROR: gh auth token failed for user '{gh_user}'. Run 'gh auth login' first.")
+        sys.exit(1)
+    token = result.stdout.strip()
+
+    # Resolve name
+    result = subprocess.run(
+        ["gh", "api", "/user", "--jq", ".name"],
+        env={**os.environ, "GH_TOKEN": token},
+        capture_output=True,
+        text=True,
+    )
+    name = result.stdout.strip() if result.returncode == 0 else ""
+
+    # Resolve email
+    result = subprocess.run(
+        ["gh", "api", "/user", "--jq", ".email"],
+        env={**os.environ, "GH_TOKEN": token},
+        capture_output=True,
+        text=True,
+    )
+    email = result.stdout.strip() if result.returncode == 0 else ""
+
+    # Update cache
+    _gh_cache.update(
+        gh_user=gh_user,
+        token=token,
+        name=name,
+        email=email,
+        expires_at=time.time() + 900,
+    )
+
+    return {
+        "GH_TOKEN": token,
+        "GIT_AUTHOR_NAME": name,
+        "GIT_AUTHOR_EMAIL": email,
+        "GIT_COMMITTER_NAME": name,
+        "GIT_COMMITTER_EMAIL": email,
+    }
+
 
 def now_iso() -> str:
     return datetime.now(KST).strftime("%Y-%m-%dT%H:%M:%S%z")
@@ -96,41 +168,9 @@ def git_run(*args, env: Optional[dict] = None) -> subprocess.CompletedProcess:
     )
 
 
-def git_ensure_branch(task_name: str):
-    branch = f"feat-{task_name}"
-
-    # Current branch
-    r = git_run("rev-parse", "--abbrev-ref", "HEAD")
-    if r.returncode != 0:
-        print(
-            f"ERROR: git not available or not a git repo.\n{r.stderr.strip()}")
-        sys.exit(1)
-    current = r.stdout.strip()
-
-    if current == branch:
-        return  # already on the branch (resume)
-
-    # Check if branch exists
-    r = git_run("rev-parse", "--verify", branch)
-    if r.returncode == 0:
-        # Branch exists — checkout
-        r = git_run("checkout", branch)
-    else:
-        # Create new branch
-        r = git_run("checkout", "-b", branch)
-
-    if r.returncode != 0:
-        print(f"ERROR: Failed to checkout branch '{branch}'.")
-        print(f"  {r.stderr.strip()}")
-        print("Hint: stash or commit your changes first.")
-        sys.exit(1)
-
-    print(f"  Branch: {branch}")
-
-
 def git_commit_docs(task_name: str, gh_env: dict[str, str]):
     """Commit task plan files (tasks/, docs/, prompts/) before phase execution."""
-    git_run("add", "tasks/", "spec/", "prompts/")
+    git_run("add", "tasks/", "docs/", "prompts/")
 
     if git_run("diff", "--cached", "--quiet").returncode == 0:
         return
@@ -235,10 +275,6 @@ def build_preamble(project_name: str, task_dir_name: str, task_name: str) -> str
 5. 기존 테스트를 깨뜨리지 마세요.
 6. AC 통과 후, index.json 업데이트까지 완료했다면, 모든 변경사항을 아래 형식으로 커밋하세요:
    {commit_example}
-7. 작업 중 사용자 개입이 반드시 필요한 상황(API key 제공, 외부 서비스 인증, 수동 설정 등)이 발생하여 직접 해결이 불가능하다면:
-   - /tasks/{task_dir_name}/index.json의 해당 phase status를 "blocked"로 변경하세요.
-   - "blocked_reason" 필드에 사유를 구체적으로 기록하세요 (예: "Claude API key가 Config.plist에 설정되지 않음").
-   - 작업을 즉시 중단하세요. 해결을 시도하지 마세요.
 
 아래는 이번 phase의 상세 내용입니다:
 
@@ -267,7 +303,7 @@ def run_phase(task_dir: Path, phase: dict, preamble: str, gh_env: dict[str, str]
         cwd=str(ROOT),
         capture_output=True,
         text=True,
-        timeout=1800,  # 30 minutes per phase
+        timeout=600,  # 10 minutes per phase
         env={**os.environ, **gh_env} if gh_env else None,
     )
 
@@ -313,8 +349,6 @@ def update_top_index_status(task_dir_name: str, status: str):
                 task["completed_at"] = ts
             elif status == "error":
                 task["failed_at"] = ts
-            elif status == "blocked":
-                task["blocked_at"] = ts
             break
     save_index(TOP_INDEX_FILE, top_index)
 
@@ -333,7 +367,7 @@ def main():
         sys.exit(1)
 
     index = load_index(index_file)
-    project_name = index.get("project", "agentinc")
+    project_name = index.get("project", "cc-company")
     task_name = index.get("task", task_dir_name)
     total_phases = index.get("totalPhases", len(index["phases"]))
     pending_count = sum(1 for p in index["phases"] if p["status"] == "pending")
@@ -342,14 +376,14 @@ def main():
 
     # --- Header ---
     print(f"\n{'='*60}")
-    print(f"  agentinc Phase Runner")
+    print(f"  hase Runner")
     print(
         f"  Task: {task_name} | Phases: {total_phases} | Pending: {pending_count}")
     if gh_user:
         print(f"  GitHub: {gh_user}")
     print(f"{'='*60}")
 
-    # --- Error / blocked check ---
+    # --- Error check ---
     last = get_last_phase(index)
     if last and last["status"] == "error":
         print(f"\n  ✗ Phase {last['phase']} ({last['name']}) failed.")
@@ -358,16 +392,8 @@ def main():
         print(
             f"  Fix the issue and reset status to 'pending' in {index_file} to retry.")
         sys.exit(1)
-    if last and last["status"] == "blocked":
-        print(f"\n  ⏸ Phase {last['phase']} ({last['name']}) is blocked.")
-        if "blocked_reason" in last:
-            print(f"  Reason: {last['blocked_reason']}")
-        print(
-            f"  Resolve the issue and reset status to 'pending' in {index_file} to retry.")
-        sys.exit(2)
 
-    # --- Git branch + docs commit ---
-    git_ensure_branch(task_name)
+    # --- Docs commit ---
     git_commit_docs(task_name, gh_env)
 
     # --- Preamble ---
@@ -439,27 +465,7 @@ def main():
             print(
                 f"  Fix the issue and reset status to 'pending' in {index_file} to retry.")
             update_top_index_status(task_dir_name, "error")
-            git_commit_phase(task_name, task_dir_name,
-                             phase_num, phase_name, gh_env)
             sys.exit(1)
-
-        if status == "blocked":
-            for p in fresh_index["phases"]:
-                if p["phase"] == phase_num:
-                    p["blocked_at"] = ts_end
-                    break
-            save_index(index_file, fresh_index)
-            reason = ""
-            for p in fresh_index["phases"]:
-                if p["phase"] == phase_num:
-                    reason = p.get("blocked_reason", "unknown")
-                    break
-            print(f"  ⏸ Phase {phase_num}: {phase_name} blocked [{elapsed}s]")
-            print(f"    Reason: {reason}")
-            update_top_index_status(task_dir_name, "blocked")
-            git_commit_phase(task_name, task_dir_name,
-                             phase_num, phase_name, gh_env)
-            sys.exit(2)
 
         if status == "completed":
             for p in fresh_index["phases"]:
@@ -467,6 +473,14 @@ def main():
                     p["completed_at"] = ts_end
                     break
             save_index(index_file, fresh_index)
+
+            # Generate docs-diff.md after phase 0 (docs update)
+            if phase_num == 0:
+                subprocess.run(
+                    ["python3", str(
+                        ROOT / "scripts" / "gen-docs-diff.py"), str(task_dir), baseline],
+                    cwd=str(ROOT),
+                )
 
             git_commit_phase(task_name, task_dir_name,
                              phase_num, phase_name, gh_env)
@@ -502,14 +516,6 @@ def main():
             print(f"  ✓ {msg}")
         else:
             print(f"  WARN: final commit failed: {r.stderr.strip()}")
-
-    # Push branch to remote
-    branch = f"feat-{task_name}"
-    r = git_run("push", "-u", "origin", branch)
-    if r.returncode != 0:
-        print(f"\n  ERROR: git push failed: {r.stderr.strip()}")
-        sys.exit(1)
-    print(f"  ✓ Pushed to origin/{branch}")
 
     print(f"\n{'='*60}")
     print(f"  Task {task_dir_name}: all phases completed!")
