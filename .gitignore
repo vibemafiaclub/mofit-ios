@@ -9,6 +9,7 @@ build/
 
 # Secrets
 Mofit/Config/Secrets.swift
+server/.env
 
 # macOS
 .DS_Store
