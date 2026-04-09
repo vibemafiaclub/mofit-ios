@@ -15,7 +15,10 @@
     {
       "phase": 1,
       "name": "db-schema",
-      "status": "pending"
+      "status": "completed",
+      "started_at": "2026-04-09T21:29:25+0900",
+      "completed_at": "2026-04-09T22:10:00+0900",
+      "note": "4개 테이블 및 인덱스 생성 완료. test 브랜치 DB는 Pro 플랜 필요로 스킵."
     },
     {
       "phase": 2,
