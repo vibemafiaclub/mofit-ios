@@ -84,3 +84,43 @@ any state → (stop btn) → saveRecord → home
 
 ## 화면 자동 잠금
 트래킹 화면 진입 시 `UIApplication.shared.isIdleTimerDisabled = true`, 퇴장 시 복원.
+
+---
+
+## 서버 아키텍처
+
+로그인 유저 데이터 저장 및 Claude API 프록시를 위한 백엔드 서버.
+
+```
+server/
+├── src/
+│   ├── index.js          # Express 앱 엔트리포인트
+│   ├── config/
+│   │   └── db.js         # Supabase 클라이언트 초기화
+│   ├── middleware/
+│   │   └── auth.js       # JWT 검증 미들웨어
+│   ├── routes/
+│   │   ├── auth.js       # POST /auth/signup, POST /auth/login
+│   │   ├── profile.js    # GET/PUT /profile
+│   │   ├── sessions.js   # GET/POST/DELETE /sessions
+│   │   └── coaching.js   # GET/POST /coaching, POST /coaching/request
+│   └── tests/
+│       ├── setup.js      # 테스트 DB 연결 + cleanup
+│       ├── auth.test.js
+│       └── crud.test.js
+├── package.json
+├── .env.example
+└── Dockerfile
+```
+
+## iOS 네트워킹 레이어
+
+로그인 유저를 위한 서버 통신 레이어.
+
+```
+Mofit/Services/
+├── APIService.swift      # 서버 HTTP 통신 (JWT 첨부)
+├── AuthManager.swift     # 로그인 상태 관리 (@Published isLoggedIn)
+├── KeychainService.swift # JWT 토큰 Keychain 저장/조회/삭제
+└── ClaudeAPIService.swift # (기존) → 로그인 시 서버 프록시 경유로 변경
+```

@@ -5,14 +5,52 @@
   "totalPhases": 9,
   "created_at": "2026-04-09T21:20:00+0900",
   "phases": [
-    { "phase": 0, "name": "docs-update", "status": "pending" },
-    { "phase": 1, "name": "db-schema", "status": "pending" },
-    { "phase": 2, "name": "server-auth", "status": "pending" },
-    { "phase": 3, "name": "server-crud", "status": "pending" },
-    { "phase": 4, "name": "server-deploy", "status": "pending" },
-    { "phase": 5, "name": "ios-networking", "status": "pending" },
-    { "phase": 6, "name": "ios-auth-ui", "status": "pending" },
-    { "phase": 7, "name": "ios-integration", "status": "pending" },
-    { "phase": 8, "name": "build-verify", "status": "pending" }
+    {
+      "phase": 0,
+      "name": "docs-update",
+      "status": "completed",
+      "started_at": "2026-04-09T21:26:37+0900",
+      "completed_at": "2026-04-09T21:35:00+0900"
+    },
+    {
+      "phase": 1,
+      "name": "db-schema",
+      "status": "pending"
+    },
+    {
+      "phase": 2,
+      "name": "server-auth",
+      "status": "pending"
+    },
+    {
+      "phase": 3,
+      "name": "server-crud",
+      "status": "pending"
+    },
+    {
+      "phase": 4,
+      "name": "server-deploy",
+      "status": "pending"
+    },
+    {
+      "phase": 5,
+      "name": "ios-networking",
+      "status": "pending"
+    },
+    {
+      "phase": 6,
+      "name": "ios-auth-ui",
+      "status": "pending"
+    },
+    {
+      "phase": 7,
+      "name": "ios-integration",
+      "status": "pending"
+    },
+    {
+      "phase": 8,
+      "name": "build-verify",
+      "status": "pending"
+    }
   ]
 }
