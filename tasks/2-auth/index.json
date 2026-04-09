@@ -37,7 +37,10 @@
     {
       "phase": 4,
       "name": "server-deploy",
-      "status": "pending"
+      "status": "completed",
+      "started_at": "2026-04-09T21:52:15+0900",
+      "completed_at": "2026-04-09T22:01:37+0900",
+      "deploy_url": "https://server-production-45a4.up.railway.app"
     },
     {
       "phase": 5,

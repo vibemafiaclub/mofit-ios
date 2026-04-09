@@ -124,3 +124,8 @@ Mofit/Services/
 ├── KeychainService.swift # JWT 토큰 Keychain 저장/조회/삭제
 └── ClaudeAPIService.swift # (기존) → 로그인 시 서버 프록시 경유로 변경
 ```
+
+## 배포 URL
+
+- **서버 (Railway)**: https://server-production-45a4.up.railway.app
+- **데이터베이스 (Supabase)**: https://xenxstjnwkchwlxvardj.supabase.co
