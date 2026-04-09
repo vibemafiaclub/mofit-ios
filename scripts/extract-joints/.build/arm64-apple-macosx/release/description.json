@@ -1,0 +1,215 @@
+{
+  "builtTestProducts" : [
+
+  ],
+  "copyCommands" : {
+
+  },
+  "explicitTargetDependencyImportCheckingMode" : {
+    "none" : {
+
+    }
+  },
+  "generatedSourceTargetSet" : [
+
+  ],
+  "pluginDescriptions" : [
+
+  ],
+  "swiftCommands" : {
+    "C.ExtractJoints-arm64-apple-macosx15.0-release.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/choesumin/Desktop/dev/mofit-ios/scripts/extract-joints/.build/arm64-apple-macosx/release/ExtractJoints.build/sources",
+      "importPath" : "/Users/choesumin/Desktop/dev/mofit-ios/scripts/extract-joints/.build/arm64-apple-macosx/release/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/choesumin/Desktop/dev/mofit-ios/scripts/extract-joints/Sources/main.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/choesumin/Desktop/dev/mofit-ios/scripts/extract-joints/.build/arm64-apple-macosx/release/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/choesumin/Desktop/dev/mofit-ios/scripts/extract-joints/.build/arm64-apple-macosx/release/ExtractJoints.build/sources"
+        }
+      ],
+      "isLibrary" : false,
+      "moduleName" : "ExtractJoints",
+      "moduleOutputPath" : "/Users/choesumin/Desktop/dev/mofit-ios/scripts/extract-joints/.build/arm64-apple-macosx/release/Modules/ExtractJoints.swiftmodule",
+      "objects" : [
+        "/Users/choesumin/Desktop/dev/mofit-ios/scripts/extract-joints/.build/arm64-apple-macosx/release/ExtractJoints.build/main.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx14.0",
+        "-O",
+        "-j10",
+        "-DSWIFT_PACKAGE",
+        "-module-cache-path",
+        "/Users/choesumin/Desktop/dev/mofit-ios/scripts/extract-joints/.build/arm64-apple-macosx/release/ModuleCache",
+        "-parseable-output",
+        "-Xfrontend",
+        "-entry-point-function-name",
+        "-Xfrontend",
+        "ExtractJoints_main",
+        "-swift-version",
+        "5",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "extract_joints"
+      ],
+      "outputFileMapPath" : "/Users/choesumin/Desktop/dev/mofit-ios/scripts/extract-joints/.build/arm64-apple-macosx/release/ExtractJoints.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/choesumin/Desktop/dev/mofit-ios/scripts/extract-joints/.build/arm64-apple-macosx/release/ExtractJoints.build/main.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/choesumin/Desktop/dev/mofit-ios/scripts/extract-joints/.build/arm64-apple-macosx/release/Modules/ExtractJoints.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/choesumin/Desktop/dev/mofit-ios/scripts/extract-joints/Sources/main.swift"
+      ],
+      "tempsPath" : "/Users/choesumin/Desktop/dev/mofit-ios/scripts/extract-joints/.build/arm64-apple-macosx/release/ExtractJoints.build",
+      "wholeModuleOptimization" : true
+    }
+  },
+  "swiftFrontendCommands" : {
+
+  },
+  "swiftTargetScanArgs" : {
+    "ExtractJoints" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "ExtractJoints",
+      "-package-name",
+      "extract_joints",
+      "-whole-module-optimization",
+      "-num-threads",
+      "10",
+      "-c",
+      "/Users/choesumin/Desktop/dev/mofit-ios/scripts/extract-joints/Sources/main.swift",
+      "-I",
+      "/Users/choesumin/Desktop/dev/mofit-ios/scripts/extract-joints/.build/arm64-apple-macosx/release/Modules",
+      "-target",
+      "arm64-apple-macosx14.0",
+      "-O",
+      "-j10",
+      "-DSWIFT_PACKAGE",
+      "-module-cache-path",
+      "/Users/choesumin/Desktop/dev/mofit-ios/scripts/extract-joints/.build/arm64-apple-macosx/release/ModuleCache",
+      "-parseable-output",
+      "-Xfrontend",
+      "-entry-point-function-name",
+      "-Xfrontend",
+      "ExtractJoints_main",
+      "-swift-version",
+      "5",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.1.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "extract_joints",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ]
+  },
+  "targetDependencyMap" : {
+    "ExtractJoints" : [
+
+    ]
+  },
+  "testDiscoveryCommands" : {
+
+  },
+  "testEntryPointCommands" : {
+
+  },
+  "writeCommands" : {
+    "/Users/choesumin/Desktop/dev/mofit-ios/scripts/extract-joints/.build/arm64-apple-macosx/release/ExtractJoints.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/choesumin/Desktop/dev/mofit-ios/scripts/extract-joints/Sources/main.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/choesumin/Desktop/dev/mofit-ios/scripts/extract-joints/.build/arm64-apple-macosx/release/ExtractJoints.build/sources"
+    },
+    "/Users/choesumin/Desktop/dev/mofit-ios/scripts/extract-joints/.build/arm64-apple-macosx/release/ExtractJoints.product/Objects.LinkFileList" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<link-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/choesumin/Desktop/dev/mofit-ios/scripts/extract-joints/.build/arm64-apple-macosx/release/ExtractJoints.build/main.swift.o"
+        }
+      ],
+      "outputFilePath" : "/Users/choesumin/Desktop/dev/mofit-ios/scripts/extract-joints/.build/arm64-apple-macosx/release/ExtractJoints.product/Objects.LinkFileList"
+    },
+    "/Users/choesumin/Desktop/dev/mofit-ios/scripts/extract-joints/.build/arm64-apple-macosx/release/swift-version--58304C5D6DBC2206.txt" : {
+      "alwaysOutOfDate" : true,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<swift-get-version>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+        }
+      ],
+      "outputFilePath" : "/Users/choesumin/Desktop/dev/mofit-ios/scripts/extract-joints/.build/arm64-apple-macosx/release/swift-version--58304C5D6DBC2206.txt"
+    }
+  }
+}

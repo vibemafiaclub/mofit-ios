@@ -1,0 +1,17 @@
+[
+  {
+    "name": "sit-up",
+    "countSeconds": [14, 18.1, 22.1, 27.2, 32],
+    "thresholdSeconds": 0.3
+  },
+  {
+    "name": "push-up",
+    "countSeconds": [15, 17, 19, 21, 23, 25, 27.2],
+    "thresholdSeconds": 0.15
+  },
+  {
+    "name": "squat",
+    "countSeconds": [6, 9, 12, 15, 18.1, 21.1],
+    "thresholdSeconds": 0.15
+  }
+]

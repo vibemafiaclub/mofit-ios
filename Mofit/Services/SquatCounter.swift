@@ -1,7 +1,7 @@
 import Foundation
 import Vision
 
-final class SquatCounter: ObservableObject {
+final class SquatCounter: ObservableObject, ExerciseCounter {
     @Published var currentReps: Int = 0
 
     private enum SquatState {
@@ -11,6 +11,7 @@ final class SquatCounter: ObservableObject {
 
     private var state: SquatState = .standing
 
+    // Optimized via scripts/optimize.py — knee angle (Hip→Knee→Ankle)
     private let standingThreshold: Double = 160
     private let squattingThreshold: Double = 100
 
@@ -36,37 +37,18 @@ final class SquatCounter: ObservableObject {
     }
 
     private func calculateKneeAngle(from joints: [VNHumanBodyPoseObservation.JointName: CGPoint]) -> Double? {
-        if let leftAngle = calculateAngle(
-            hip: joints[.leftHip],
-            knee: joints[.leftKnee],
-            ankle: joints[.leftAnkle]
-        ) {
-            return leftAngle
+        if let hip = joints[.leftHip],
+           let knee = joints[.leftKnee],
+           let ankle = joints[.leftAnkle] {
+            return calculateAngle(p1: hip, vertex: knee, p3: ankle)
         }
 
-        if let rightAngle = calculateAngle(
-            hip: joints[.rightHip],
-            knee: joints[.rightKnee],
-            ankle: joints[.rightAnkle]
-        ) {
-            return rightAngle
+        if let hip = joints[.rightHip],
+           let knee = joints[.rightKnee],
+           let ankle = joints[.rightAnkle] {
+            return calculateAngle(p1: hip, vertex: knee, p3: ankle)
         }
 
         return nil
-    }
-
-    private func calculateAngle(hip: CGPoint?, knee: CGPoint?, ankle: CGPoint?) -> Double? {
-        guard let hip = hip, let knee = knee, let ankle = ankle else {
-            return nil
-        }
-
-        let angleRadians = atan2(ankle.y - knee.y, ankle.x - knee.x) - atan2(hip.y - knee.y, hip.x - knee.x)
-        var angleDegrees = abs(angleRadians * 180 / .pi)
-
-        if angleDegrees > 180 {
-            angleDegrees = 360 - angleDegrees
-        }
-
-        return angleDegrees
     }
 }

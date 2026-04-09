@@ -23,7 +23,11 @@ final class TrackingViewModel: ObservableObject {
     private let cameraManager: CameraManager
     private let poseDetectionService = PoseDetectionService()
     private let handDetectionService = HandDetectionService()
-    private let squatCounter = SquatCounter()
+
+    let exerciseType: String
+    private let squatCounter: SquatCounter?
+    private let pushUpCounter: PushUpCounter?
+    private let sitUpCounter: SitUpCounter?
 
     private var countdownTimer: Timer?
     private var elapsedTimer: Timer?
@@ -34,18 +38,48 @@ final class TrackingViewModel: ObservableObject {
 
     var viewSize: CGSize = .zero
 
-    init(cameraManager: CameraManager = CameraManager()) {
+    init(exerciseType: String = "squat", cameraManager: CameraManager = CameraManager()) {
+        self.exerciseType = exerciseType
         self.cameraManager = cameraManager
+
+        switch exerciseType {
+        case "pushup":
+            let counter = PushUpCounter()
+            self.pushUpCounter = counter
+            self.squatCounter = nil
+            self.sitUpCounter = nil
+        case "situp":
+            let counter = SitUpCounter()
+            self.sitUpCounter = counter
+            self.squatCounter = nil
+            self.pushUpCounter = nil
+        default:
+            let counter = SquatCounter()
+            self.squatCounter = counter
+            self.pushUpCounter = nil
+            self.sitUpCounter = nil
+        }
+
         setupBindings()
     }
 
     private func setupBindings() {
-        squatCounter.$currentReps
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] reps in
-                self?.currentReps = reps
-            }
-            .store(in: &cancellables)
+        if let counter = squatCounter {
+            counter.$currentReps
+                .receive(on: DispatchQueue.main)
+                .sink { [weak self] reps in self?.currentReps = reps }
+                .store(in: &cancellables)
+        } else if let counter = pushUpCounter {
+            counter.$currentReps
+                .receive(on: DispatchQueue.main)
+                .sink { [weak self] reps in self?.currentReps = reps }
+                .store(in: &cancellables)
+        } else if let counter = sitUpCounter {
+            counter.$currentReps
+                .receive(on: DispatchQueue.main)
+                .sink { [weak self] reps in self?.currentReps = reps }
+                .store(in: &cancellables)
+        }
     }
 
     var captureSession: AVCaptureSession {
@@ -62,7 +96,7 @@ final class TrackingViewModel: ObservableObject {
         palmDetectionStartTime = nil
         sessionStartTime = nil
         hasStartedElapsedTimer = false
-        squatCounter.reset()
+        resetCounter()
 
         cameraManager.onFrameCaptured = { [weak self] sampleBuffer in
             Task { @MainActor [weak self] in
@@ -86,7 +120,7 @@ final class TrackingViewModel: ObservableObject {
 
         if !repCounts.isEmpty {
             let session = WorkoutSession(
-                exerciseType: "squat",
+                exerciseType: exerciseType,
                 startedAt: sessionStartTime ?? Date(),
                 endedAt: Date(),
                 totalDuration: elapsedTime,
@@ -102,7 +136,7 @@ final class TrackingViewModel: ObservableObject {
 
         if case .tracking = state {
             if let joints = poseDetectionService.detectPose(in: sampleBuffer) {
-                squatCounter.processJoints(joints)
+                processJointsForExercise(joints)
                 updateJointPoints(joints)
             }
         }
@@ -169,8 +203,20 @@ final class TrackingViewModel: ObservableObject {
 
     private func startTracking() {
         state = .tracking
-        squatCounter.reset()
+        resetCounter()
         currentReps = 0
+    }
+
+    private func processJointsForExercise(_ joints: [VNHumanBodyPoseObservation.JointName: CGPoint]) {
+        squatCounter?.processJoints(joints)
+        pushUpCounter?.processJoints(joints)
+        sitUpCounter?.processJoints(joints)
+    }
+
+    private func resetCounter() {
+        squatCounter?.reset()
+        pushUpCounter?.reset()
+        sitUpCounter?.reset()
     }
 
     private func completeSet() {

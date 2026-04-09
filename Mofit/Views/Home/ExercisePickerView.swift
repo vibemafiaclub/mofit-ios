@@ -7,8 +7,7 @@ struct ExercisePickerView: View {
     private let exercises: [(name: String, icon: String)] = [
         ("스쿼트", "figure.strengthtraining.traditional"),
         ("푸쉬업", "figure.strengthtraining.functional"),
-        ("런지", "figure.walk"),
-        ("플랭크", "figure.core.training")
+        ("싯업", "figure.core.training"),
     ]
 
     private let columns = [

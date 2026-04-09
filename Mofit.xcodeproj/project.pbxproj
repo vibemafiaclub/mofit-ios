@@ -33,6 +33,9 @@
 		E1F4BBE70C968CD633DAF968 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFD763970F385A2ACEF4378B /* AVFoundation.framework */; };
 		EBD474B9931DADC6EF009DA5 /* Vision.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD6BDED53C67924AFC395DBF /* Vision.framework */; };
 		EFA5A622083309D15229B947 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FD0106B1C899177F7A304F5 /* HomeView.swift */; };
+		BBBB0001BBBB0001BBBB0001 /* ExerciseCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA0001AAAA0001AAAA0001 /* ExerciseCounter.swift */; };
+		BBBB0002BBBB0002BBBB0002 /* PushUpCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA0002AAAA0002AAAA0002 /* PushUpCounter.swift */; };
+		BBBB0003BBBB0003BBBB0003 /* SitUpCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAAA0003AAAA0003AAAA0003 /* SitUpCounter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,6 +66,9 @@
 		EA6926B00BCAFB4148B2CE7F /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		F6404E727F43F13BC9E2BA38 /* CoachingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachingView.swift; sourceTree = "<group>"; };
 		FD6BDED53C67924AFC395DBF /* Vision.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Vision.framework; path = System/Library/Frameworks/Vision.framework; sourceTree = SDKROOT; };
+		AAAA0001AAAA0001AAAA0001 /* ExerciseCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseCounter.swift; sourceTree = "<group>"; };
+		AAAA0002AAAA0002AAAA0002 /* PushUpCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushUpCounter.swift; sourceTree = "<group>"; };
+		AAAA0003AAAA0003AAAA0003 /* SitUpCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SitUpCounter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +122,9 @@
 				AA180531E041D0064A4E1BD6 /* HandDetectionService.swift */,
 				9B473B4153DEB5184CD1DF3B /* PoseDetectionService.swift */,
 				8AABB2EE6E0D3FF9420DBD32 /* SquatCounter.swift */,
+				AAAA0003AAAA0003AAAA0003 /* SitUpCounter.swift */,
+				AAAA0002AAAA0002AAAA0002 /* PushUpCounter.swift */,
+				AAAA0001AAAA0001AAAA0001 /* ExerciseCounter.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -322,6 +331,9 @@
 				1B9A22903E537DBBF96DCFE9 /* RecordsView.swift in Sources */,
 				27DAFE208404F65266CCB764 /* Secrets.swift in Sources */,
 				20D3C2873C603E787E8F4B8A /* SquatCounter.swift in Sources */,
+				BBBB0003BBBB0003BBBB0003 /* SitUpCounter.swift in Sources */,
+				BBBB0002BBBB0002BBBB0002 /* PushUpCounter.swift in Sources */,
+				BBBB0001BBBB0001BBBB0001 /* ExerciseCounter.swift in Sources */,
 				DEAF30B7E4070A8E3EC79D3B /* Theme.swift in Sources */,
 				320295EE2CEBDD3313B19239 /* TrackingView.swift in Sources */,
 				DD38B3EBA35F9251B888AF89 /* TrackingViewModel.swift in Sources */,

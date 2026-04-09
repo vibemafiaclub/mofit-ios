@@ -1,0 +1,6 @@
+version: "Apple Swift version 6.0.2 (swiftlang-6.0.2.1.2 clang-1600.0.26.4)"
+options: "c07db2b2f4afe9dfe16c2168571a5b10f91b4843bbfc334066f42356b3d96229"
+build_start_time: [1775729261, 200445000]
+build_end_time: [1775729262, 108628000]
+inputs:
+  "/Users/choesumin/Desktop/dev/mofit-ios/scripts/extract-joints/Sources/main.swift": [1775729257, 652430208]

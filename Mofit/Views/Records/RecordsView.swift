@@ -164,8 +164,7 @@ struct RecordsView: View {
         switch type {
         case "squat": return "figure.strengthtraining.traditional"
         case "pushup": return "figure.strengthtraining.functional"
-        case "lunge": return "figure.walk"
-        case "plank": return "figure.core.training"
+        case "situp": return "figure.core.training"
         default: return "figure.strengthtraining.traditional"
         }
     }
@@ -174,8 +173,7 @@ struct RecordsView: View {
         switch type {
         case "squat": return "스쿼트"
         case "pushup": return "푸쉬업"
-        case "lunge": return "런지"
-        case "plank": return "플랭크"
+        case "situp": return "싯업"
         default: return "스쿼트"
         }
     }

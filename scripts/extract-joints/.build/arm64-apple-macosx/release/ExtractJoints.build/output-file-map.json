@@ -1,0 +1,12 @@
+{
+  "": {
+    "dependencies": "/Users/choesumin/Desktop/dev/mofit-ios/scripts/extract-joints/.build/arm64-apple-macosx/release/ExtractJoints.build/ExtractJoints.d",
+    "object": "/Users/choesumin/Desktop/dev/mofit-ios/scripts/extract-joints/.build/arm64-apple-macosx/release/ExtractJoints.build/ExtractJoints.o",
+    "swift-dependencies": "/Users/choesumin/Desktop/dev/mofit-ios/scripts/extract-joints/.build/arm64-apple-macosx/release/ExtractJoints.build/master.swiftdeps"
+  },
+  "/Users/choesumin/Desktop/dev/mofit-ios/scripts/extract-joints/Sources/main.swift": {
+    "object": "/Users/choesumin/Desktop/dev/mofit-ios/scripts/extract-joints/.build/arm64-apple-macosx/release/ExtractJoints.build/main.swift.o",
+    "swiftmodule": "/Users/choesumin/Desktop/dev/mofit-ios/scripts/extract-joints/.build/arm64-apple-macosx/release/ExtractJoints.build/main~partial.swiftmodule",
+    "swift-dependencies": "/Users/choesumin/Desktop/dev/mofit-ios/scripts/extract-joints/.build/arm64-apple-macosx/release/ExtractJoints.build/main.swiftdeps"
+  }
+}

@@ -4,8 +4,15 @@ import SwiftUI
 struct TrackingView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
-    @StateObject private var viewModel = TrackingViewModel()
+    let exerciseType: String
+    @StateObject private var viewModel: TrackingViewModel
     @Binding var showConfetti: Bool
+
+    init(exerciseType: String, showConfetti: Binding<Bool>) {
+        self.exerciseType = exerciseType
+        self._showConfetti = showConfetti
+        self._viewModel = StateObject(wrappedValue: TrackingViewModel(exerciseType: exerciseType))
+    }
 
     var body: some View {
         GeometryReader { geometry in

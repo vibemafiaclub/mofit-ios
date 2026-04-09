@@ -7,6 +7,16 @@ struct HomeView: View {
     @Query private var sessions: [WorkoutSession]
 
     @State private var selectedExerciseName = "스쿼트"
+
+    private static let exerciseNameToType: [String: String] = [
+        "스쿼트": "squat",
+        "푸쉬업": "pushup",
+        "싯업": "situp",
+    ]
+
+    private var selectedExerciseType: String {
+        Self.exerciseNameToType[selectedExerciseName] ?? "squat"
+    }
     @State private var showExercisePicker = false
     @State private var showProfileEdit = false
     @State private var showTracking = false
@@ -74,7 +84,7 @@ struct HomeView: View {
             ProfileEditView()
         }
         .fullScreenCover(isPresented: $showTracking) {
-            TrackingView(showConfetti: $showConfetti)
+            TrackingView(exerciseType: selectedExerciseType, showConfetti: $showConfetti)
         }
     }
 
