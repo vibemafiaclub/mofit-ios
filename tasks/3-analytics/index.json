@@ -5,8 +5,22 @@
   "totalPhases": 3,
   "created_at": "2026-04-09T22:57:00+0900",
   "phases": [
-    { "phase": 0, "name": "docs-update", "status": "pending" },
-    { "phase": 1, "name": "sdk-setup", "status": "pending" },
-    { "phase": 2, "name": "event-instrumentation", "status": "pending" }
+    {
+      "phase": 0,
+      "name": "docs-update",
+      "status": "completed",
+      "started_at": "2026-04-09T23:00:30+0900",
+      "completed_at": "2026-04-09T23:10:00+0900"
+    },
+    {
+      "phase": 1,
+      "name": "sdk-setup",
+      "status": "pending"
+    },
+    {
+      "phase": 2,
+      "name": "event-instrumentation",
+      "status": "pending"
+    }
   ]
 }

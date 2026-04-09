@@ -38,7 +38,8 @@ Mofit/
 │   ├── PoseDetectionService.swift  # VNDetectHumanBodyPoseRequest 래퍼
 │   ├── HandDetectionService.swift  # VNDetectHumanHandPoseRequest 래퍼
 │   ├── SquatCounter.swift          # 관절 각도 → rep 판정
-│   └── ClaudeAPIService.swift      # Claude API 호출
+│   ├── ClaudeAPIService.swift      # Claude API 호출
+│   └── AnalyticsService.swift      # Mixpanel 래퍼. 이벤트 추적, 유저 식별
 │
 ├── Camera/
 │   ├── CameraManager.swift         # AVCaptureSession 설정/관리
@@ -124,6 +125,14 @@ Mofit/Services/
 ├── KeychainService.swift # JWT 토큰 Keychain 저장/조회/삭제
 └── ClaudeAPIService.swift # (기존) → 로그인 시 서버 프록시 경유로 변경
 ```
+
+## AnalyticsService
+
+Mixpanel SDK를 감싸는 싱글톤 서비스.
+
+- `AnalyticsEvent` enum으로 이벤트명을 타입 안전하게 관리.
+- 앱 시작 시 `MofitApp.init()`에서 초기화.
+- 로그인/로그아웃 시 `identify(userId:)` / `reset()` 호출로 유저 식별.
 
 ## 배포 URL
 
