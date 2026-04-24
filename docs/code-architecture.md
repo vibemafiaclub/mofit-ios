@@ -19,8 +19,7 @@ Mofit/
 │   ├── Onboarding/
 │   │   └── OnboardingView.swift    # 단계별 온보딩 전체 (1파일)
 │   ├── Home/
-│   │   ├── HomeView.swift
-│   │   └── ExercisePickerView.swift
+│   │   └── HomeView.swift
 │   ├── Tracking/
 │   │   └── TrackingView.swift      # 카메라 프리뷰 + 상태별 오버레이
 │   ├── Records/

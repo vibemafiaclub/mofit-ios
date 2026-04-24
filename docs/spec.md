@@ -28,8 +28,7 @@ MofitApp
 ### 1.3 화면 목록
 
 - `OnboardingView` — 단계별(성별→키→몸무게→체형→목표)
-- `HomeView` — 오늘 요약 + 운동 시작
-- `ExercisePickerView` — 바텀시트 2열 그리드 (스쿼트/푸쉬업/싯업). 스쿼트만 active, 푸쉬업/싯업은 "준비중" 배지 + opacity 0.4로 비활성화 톤, tap 시 토스트 "현재는 스쿼트만 지원합니다"만 표시. (ADR-016)
+- `HomeView` — 오늘 요약 + "스쿼트 시작" 버튼 (운동 종류 선택 UI 없음, ADR-017)
 - `TrackingView` — 카메라 프리뷰 + 오버레이 + 상태머신
 - `RecordsView` — 날짜바 + 세션 리스트
 - `CoachingView` — AI 피드백 카드 + 운동 전/후 버튼
