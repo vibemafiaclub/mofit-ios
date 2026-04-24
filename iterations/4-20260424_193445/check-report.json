@@ -1,0 +1,39 @@
+{
+  "iter_id": "4-20260424_193445",
+  "status": "pass",
+  "task": {
+    "dir": "tasks/3-squat-only-pivot",
+    "name": "squat-only-pivot",
+    "overall_status": "completed"
+  },
+  "phases": [
+    {
+      "phase": 0,
+      "name": "docs",
+      "status": "completed",
+      "duration_sec": 167,
+      "notes": "docs/mission|prd|spec|flow|code-architecture|adr.md + README.md 카피 정돈 + ADR-017 append + ADR-008/016 SUPERSEDED"
+    },
+    {
+      "phase": 1,
+      "name": "squat-only-code",
+      "status": "completed",
+      "duration_sec": 125,
+      "notes": "ExercisePickerView.swift 삭제 + HomeView exerciseSelector/sheet/picker 상태 제거 + 라벨 '스쿼트 시작'/'스쿼트' 교체 + xcodegen + BUILD SUCCEEDED"
+    }
+  ],
+  "issues": [],
+  "conclusion": "2 phase 모두 completed, 빌드 성공. 직전 iter(tap fallback) 구현 이후 돌린 sim에서 손바닥 폴백 pain이 상위 근거에서 사라졌고 confidence 55→58로 소폭 호전 — 직전 iteration 효과 확인됨.",
+  "carry_over": [
+    "squat-only pivot 실제 효과는 다음 iteration sim에서 검증 필요 (이번 run은 pivot 반영 전 상태로 시뮬됨)",
+    "여전히 drop 유지 — 남은 top pain: 앱스토어 미출시/리뷰 부재, rep 카운트 정량 정확도, AI 코칭 차별성, ADR-013 로컬→서버 미이관",
+    "새로 부각된 pain: AI 코칭이 ChatGPT 대체재 수준으로 읽힘, 영구 무료 약속 모호성, 시각 증거(스크린샷) 부재"
+  ],
+  "progress": {
+    "previous_iter_id": "3-20260424_162818",
+    "previous_run_id": "home-workout-newbie-20s_20260424_163049",
+    "current_run_id": "home-workout-newbie-20s_20260424_193756",
+    "signal": "improved",
+    "summary": "직전 iter 3 top-3 reject 중 '손바닥 폴백 부재'가 iter 4 sim의 개선 포인트 목록에서 사라져 tap fallback 구현 효과 확인. keyman confidence 55→58(+3)로 소폭 호전. 다만 최종 판정은 여전히 실패(drop) 유지 — 앱스토어 미출시/rep 정량 정확도/ADR-013 미이관 등 기저 pain이 지속되고 AI 코칭 차별성·시각 증거 부재 등 새 pain이 부각됨."
+  }
+}
