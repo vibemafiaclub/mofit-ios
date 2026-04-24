@@ -1,0 +1,11 @@
+{
+  "project": "Mofit",
+  "task": "coaching-samples",
+  "prompt": "iteration 2 (run_id: home-workout-newbie-20s_20260424_160033)의 요구사항(/Users/choesumin/Desktop/dev/mofit-ios/iterations/2-20260424_155909/requirement.md) 구현: 비로그인 사용자가 AI 코칭 탭에 진입했을 때 '이런 피드백을 받게 됩니다' 섹션 + 하드코딩 샘플 피드백 카드 2종(운동 전 동기부여 / 운동 후 피드백)을 노출하여 'ChatGPT 대체 가능' 의심을 선제 차단한다. SwiftData 스키마/서버 API/Analytics 불변(CTO 조건부 #5), 샘플 최대 2종(CTO 조건부 #4), 고지 '※ 예시 피드백 (실제 데이터 기반으로 매번 다름)' 필수(CTO 조건부 #3), 파일 경로 정정(CTO 조건부 #1) — 실제 비로그인 분기는 Mofit/Views/Coaching/CoachingView.swift의 notLoggedInContent property.",
+  "totalPhases": 2,
+  "created_at": "2026-04-24T16:18:22+0900",
+  "phases": [
+    { "phase": 0, "name": "docs", "status": "pending" },
+    { "phase": 1, "name": "samples-ui", "status": "pending" }
+  ]
+}
