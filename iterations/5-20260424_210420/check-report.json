@@ -1,0 +1,44 @@
+{
+  "iter_id": "5-20260424_210420",
+  "status": "pass",
+  "task": {
+    "dir": "tasks/4-diagnostic-hint",
+    "name": "diagnostic-hint",
+    "overall_status": "completed"
+  },
+  "phases": [
+    {
+      "phase": 0,
+      "name": "docs",
+      "status": "completed",
+      "duration_sec": 156,
+      "notes": "ADR-018 추가 + spec/code-architecture/user-intervention 갱신, 7개 AC 전부 통과"
+    },
+    {
+      "phase": 1,
+      "name": "hint-impl",
+      "status": "completed",
+      "duration_sec": 267,
+      "notes": "PoseDetectionService 재작성(detectPoseDetailed 신설, detectPose 삭제), TVM에 DiagnosticHint enum·DiagnosticHintEvaluator·Diagnostic 상수 추가, TrackingView에 hintBanner 오버레이 추가, xcodebuild BUILD SUCCEEDED, 13개 AC 전부 통과"
+    }
+  ],
+  "issues": [
+    "실기기 QA(정상 3rep 카운트 유지 + 프레임 이탈 시 3~5초 내 outOfFrame 힌트 출현)는 CTO 조건부 #5에 따라 머지 전 인간 수행 필요 — 무인 세션에서는 미실시",
+    "조도 케이스(lowLight)는 조건부 #5에서 실기기 검증 생략 허용 — 임계치 로직만 구현되어 있음"
+  ],
+  "conclusion": "plan-and-build 2 phases 모두 completed, xcodebuild 성공. 진단 힌트 구현은 build 레벨에서 CTO 5개 조건 전부 충족. 단, 이번 iter의 설득 시뮬은 구현 반영 前 VP 상태로 실행되어 개선 효과가 반영되지 않았으며, 직전 iter(스쿼트-only 포지셔닝 확정) 대비 keyman confidence는 58→55로 소폭 하락.",
+  "carry_over": [
+    "실기기 QA 1회 수행 (정상 환경 3rep 카운트 유지 + 프레임 이탈 3~5초 내 outOfFrame 힌트 출현)",
+    "다음 iter에서는 diagnostic-hint 반영된 VP로 시뮬을 돌려 '엣지 케이스·복구 공백' pain이 실제 해소됐는지 검증",
+    "신규 surfaced pain: 온보딩 6단계 마찰(iter 5 report pain #4) — 다음 후보",
+    "지속 잔존 pain: 카운트 정확도 정량 지표 부재, 외부 신뢰 신호 부재(앱스토어 미출시), 비로그인→로그인 기록 미이관(ADR-013), AI 코칭 차별점 검증 불가",
+    "구조적 reject 사유(keyman: '스쿼트 외 운동 루틴 전반을 원한다')는 포지셔닝 교정으로 해소 불가 — 다음 iter 설계 시 고려"
+  ],
+  "progress": {
+    "previous_iter_id": "4-20260424_193445",
+    "previous_run_id": "home-workout-newbie-20s_20260424_193756",
+    "current_run_id": "home-workout-newbie-20s_20260424_210609",
+    "signal": "inconclusive",
+    "summary": "직전 iter에서 대응한 '홈트/스쿼트 카피 불일치' pain(prev #3)은 이번 report에서 '스쿼트 전용 한계와 포지셔닝 정렬 실패'(curr #1)로 framing이 바뀌어 여전히 최상위 reject 사유로 잔존 — 페르소나 기대(맨몼 운동 루틴 전반)와 제품 범위(스쿼트 1종) 간 구조적 갭이 카피 교체로는 해소되지 않음. keyman confidence 58→55로 소폭 하락, 새로운 pain(온보딩 6단계 마찰)도 surfaced. 다만 이번 iter의 구현물(diagnostic-hint)은 시뮬 시점 VP에 미반영이라 효과 평가는 다음 iter에서 이루어져야 함."
+  }
+}
