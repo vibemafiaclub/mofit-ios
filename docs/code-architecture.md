@@ -25,7 +25,8 @@ Mofit/
 │   ├── Records/
 │   │   └── RecordsView.swift
 │   ├── Coaching/
-│   │   └── CoachingView.swift
+│   │   ├── CoachingView.swift
+│   │   └── CoachingSamples.swift  # CoachingSample struct + CoachingSampleGenerator (Foundation-only pure, iter 7)
 │   └── Profile/
 │       └── ProfileEditView.swift
 │

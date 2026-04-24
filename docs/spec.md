@@ -33,7 +33,7 @@ MofitApp
 - `RecordsView` — 날짜바 + 세션 리스트
 - `CoachingView` — AI 피드백 카드 + 운동 전/후 버튼
 - `ProfileEditView` — 온보딩 5개 값 수정 + (로그인 시) 로그아웃
-- `AuthGateView` — 비로그인 시 코칭 탭에 표시되는 로그인/회원가입 안내 + AI 코칭 샘플 피드백 카드 2장(운동 전/후) 상단 노출.
+- `AuthGateView` — 비로그인 시 코칭 탭에 표시되는 로그인/회원가입 안내 + `CoachingSampleGenerator` 가 온보딩 값 + 최근 7일 로컬 세션 기반으로 동적 생성한 AI 코칭 샘플 피드백 카드 2장(운동 전/후) 상단에 노출. 프로필 nil 시 카드 숨김 + "온보딩 먼저 완료해주세요" CTA. 상세 §2.7.
 - `SignupView`, `LoginView`
 
 ---
@@ -107,6 +107,21 @@ AVCaptureSession (전면)
 - **로그인 유저**: 전부 스킵. 기존 `POST /sessions` 서버 저장 경로 유지(ADR-013, ADR-014).
 - **에러 정책**: save 실패는 `print("autosave failed: \(error)")` 만 남기고 `saveError` / alert 건드리지 않음. 트래킹 중 UI 방해 절대 금지.
 - **0rep 세션**: insert 됐지만 rep 한 번도 안 들어오고 stopSession 호출된 세션은 `repCounts=[]` 로 남음. `RecordsView` 가 `$0.totalReps > 0` 필터로 숨김. SwiftData 에는 소량 남지만 UX 영향 0.
+
+### 2.7 비로그인 코칭 샘플 생성
+
+비로그인 유저가 코칭 탭(`CoachingView.notLoggedInContent`) 진입 시 노출되는 "운동 전/후" 샘플 카드 2장은 정적 하드코딩 카피가 아니라 `CoachingSampleGenerator` 가 **온보딩 값 + 최근 7일 로컬 `WorkoutSession`** 기반으로 결정론적 생성한다 (ADR-006 2026-04-24 업데이트).
+
+- **generator 시그니처**: `CoachingSampleGenerator.generate(input: CoachingGenInput, now: Date) -> [CoachingSample]`. 항상 `pre` 1개 + `post` 1개 (총 2개) 반환. Foundation-only pure struct. async 없음, 네트워크 없음, 랜덤 없음.
+- **입력 타입**: `CoachingGenInput` 은 Foundation-only struct. 필드 = `gender: String, height: Double, weight: Double, bodyType: String, goal: String, recentSessions: [CoachingGenSession]`. `@Model` 타입(`UserProfile` / `WorkoutSession`) 을 generator 가 직접 참조하지 않는다 — SwiftData 의존 격리 + 테스트 결정론.
+- **adapter 위치**: `CoachingView` 의 `@Query profiles` / `@Query sessions` 결과를 view 내부 helper 에서 `CoachingGenInput` 으로 변환해 generator 호출. adapter 자체는 SwiftData 의존이라 테스트 대상 아님.
+- **템플릿 차원**: `goal(3) × kind(2) = 6개 base`. 기록유무(최근 7일 내 `totalReps > 0` 세션 존재 여부) 와 `bodyType`(slim/normal/muscular/chubby) 은 같은 템플릿 내부 인터폴레이션 분기로 처리 (템플릿 개수 증분 없음). **10개 한도 엄수** — 초과 시 ADR-006 Update 블록 재승인 필요.
+- **최근 7일 정의**: `Calendar.current.startOfDay(for: now) - 6*86400` 부터 `now` 까지 (오늘 포함). `totalReps > 0` 필터 후 집계. `totalReps == 0` autosave 세션(ADR-009 task 5 delta) 은 제외.
+- **인터폴레이션 슬롯 (최대 3개)**: (a) 최근 7일 총 rep 합, (b) 최근 7일 세션 수, (c) post 한정 최신 세션의 `repCounts` 배열. "최다 요일" / "일 평균 증감" / 기타 고급 집계는 **이번 범위 밖** (Phase 2 재승인 대상). 요일 계산은 지역화 이슈로 테스트 결정론 훼손.
+- **프로필 nil 폴백**: `@Query profiles.first == nil` 일 때 `CoachingSampleGenerator` 호출 자체를 하지 않고 카드 자리를 "온보딩을 먼저 완료해주세요" CTA 로 대체. 정적 하드코딩 카피 재사용 **금지**. (`onboardingCompleted` 은 `@AppStorage` 키로 관리되며 `UserProfile` 의 필드가 아님 — `CoachingView` 도달 시점엔 `true` 가 보장되므로 nil 체크만으로 충분.)
+- **금지 문구**: "로그인하면 Claude AI 기반 더 정교한 분석 가능" / "가입하면 …" 등 **로그인 유도 카피 추가 금지**. 현행 disclaimer "※ 예시 피드백 (실제 데이터 기반으로 매번 다름)" 유지. 미래 출시 일정·개발 계획 약속 문구 금지(ADR-017 준수).
+- **로그인 유저 경로 불변**: `CoachingView.loggedInContent` 와 `POST /coaching/request` 서버 프록시(ADR-012) 경로는 이번 범위와 무관. generator 는 호출되지 않는다.
+- **테스트**: `CoachingSampleGenerator` 는 Foundation-only pure struct 로 추출. iter 7 CTO 조건 1 에 따라 `MofitTests/CoachingSampleGeneratorTests.swift` 2 케이스(프로필 인터폴레이션 포함 / rep 숫자 포함) 가 CI 통과 조건. 실기기 QA 는 **없음** (자동 검증으로 완결).
 
 ---
 
