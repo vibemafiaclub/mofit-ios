@@ -1,0 +1,11 @@
+{
+  "project": "Mofit",
+  "task": "diagnostic-hint",
+  "prompt": "iter 5 (run_id: home-workout-newbie-20s_20260424_210609) 요구사항(iterations/5-20260424_210420/requirement.md) 구현: 트래킹 중 rep=0 & 하체 양쪽 조인트 미검출 3초 지속 시 상단 반투명 진단 배너 2종(.outOfFrame/.lowLight) 노출. 5초 grace, 3초 sustain, 하체 평균 confidence <0.5 → lowLight. 한 세션 내 rep 1회 이상 카운트되면 숨김+재표시 금지. CTO 승인 조건부 5개 엄수: (1) 힌트 카피·임계치 TVM private enum Diagnostic 1곳, (2) DiagnosticHint 2종 고정, (3) PoseDetectionService detectPoseDetailed 신규 + detectPose 삭제(외부 호출자 0), (4) hide-once-rep 규칙, (5) 실기기 QA — 정상 3rep + 프레임 이탈 3~5초 outOfFrame 출현. 2-phase: docs(ADR-018) → 구현(Service+VM+View+xcodebuild). MofitTests 타겟 신설 금지.",
+  "totalPhases": 2,
+  "created_at": "2026-04-24T21:34:07+0900",
+  "phases": [
+    { "phase": 0, "name": "docs", "status": "pending" },
+    { "phase": 1, "name": "hint-impl", "status": "pending" }
+  ]
+}
