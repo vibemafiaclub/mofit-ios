@@ -18,3 +18,6 @@ node_modules/
 .env*
 
 __pycache__/
+
+# cc-system harness — 이터레이션 로그는 크기 큼, 산출물(requirement.md, check-report.json 등)만 commit
+iterations/*/*.log

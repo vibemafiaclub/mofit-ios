@@ -79,6 +79,15 @@ Mofit/
     └── Tracking/       # 실시간 운동 추적
 ```
 
+## 자율 주행 하네스
+
+이 레포는 [`greatSumini/cc-system`](https://github.com/greatSumini/cc-system) 의 자율 주행 하네스를 사용한다. `python3 scripts/run-server.py` 가 ideation → plan-and-build → commit → build-check → rollback 루프를 반복하면서 `iterations/<N>-<timestamp>/` 하위에 산출물을 쌓는다.
+
+- **트리거**: 사용자가 로컬에서 `run-server.py` 를 실행 (CI/자동 기동 아님).
+- **컨텍스트 파일**: `docs/mission.md`, `docs/spec.md`, `docs/testing.md`, `docs/user-intervention.md`, `persuasion-data/personas/*`. 하네스가 이들을 주 참조서로 쓴다.
+- **무인 모드**: `run-server.py` 가 자식 claude 세션에 `HARNESS_HEADLESS=1` 을 주입하면 skill 들이 사용자 확인 단계를 모두 자동 승인한다. 수동 쉘에서 이 변수를 직접 export 하지 말 것.
+- **출력**: `iterations/*/requirement.md`(아이디에이션 결과), `iterations/*/check-report.json`, `tasks/<id>/phaseN.md` (구현 계획).
+
 ## 라이선스
 
 All rights reserved.
