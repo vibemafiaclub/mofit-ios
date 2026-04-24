@@ -15,7 +15,9 @@
     {
       "phase": 1,
       "name": "samples-ui",
-      "status": "pending"
+      "status": "completed",
+      "started_at": "2026-04-24T16:22:18+0900",
+      "completed_at": "2026-04-24T16:35:00+0900"
     }
   ]
 }

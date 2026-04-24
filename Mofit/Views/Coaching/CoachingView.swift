@@ -129,54 +129,88 @@ struct CoachingView: View {
     }
 
     private var notLoggedInContent: some View {
-        VStack(spacing: 24) {
-            Spacer()
+        ScrollView {
+            VStack(spacing: 24) {
+                Image(systemName: "brain.head.profile")
+                    .font(.system(size: 80))
+                    .foregroundColor(Theme.neonGreen)
 
-            Image(systemName: "brain.head.profile")
-                .font(.system(size: 80))
-                .foregroundColor(Theme.neonGreen)
+                Text("AI 코칭은 로그인 후\n사용할 수 있어요")
+                    .font(.title2)
+                    .fontWeight(.semibold)
+                    .foregroundColor(Theme.textPrimary)
+                    .multilineTextAlignment(.center)
 
-            Text("AI 코칭은 로그인 후\n사용할 수 있어요")
-                .font(.title2)
-                .fontWeight(.semibold)
-                .foregroundColor(Theme.textPrimary)
-                .multilineTextAlignment(.center)
-
-            VStack(spacing: 12) {
-                Button {
-                    showLogin = true
-                } label: {
-                    Text("로그인")
+                VStack(alignment: .leading, spacing: 12) {
+                    Text("이런 피드백을 받게 됩니다")
                         .font(.headline)
-                        .fontWeight(.semibold)
-                        .foregroundColor(Theme.darkBackground)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 56)
-                        .background(Theme.neonGreen)
-                        .cornerRadius(16)
-                }
+                        .foregroundColor(Theme.textPrimary)
 
-                Button {
-                    showSignUp = true
-                } label: {
-                    Text("회원가입")
-                        .font(.headline)
-                        .fontWeight(.semibold)
-                        .foregroundColor(Theme.neonGreen)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 56)
-                        .background(Color.clear)
-                        .cornerRadius(16)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 16)
-                                .stroke(Theme.neonGreen, lineWidth: 2)
-                        )
+                    ForEach(CoachingSamples.all) { sample in
+                        sampleFeedbackCard(sample: sample)
+                    }
                 }
+                .padding(.horizontal, 16)
+
+                VStack(spacing: 12) {
+                    Button {
+                        showLogin = true
+                    } label: {
+                        Text("로그인")
+                            .font(.headline)
+                            .fontWeight(.semibold)
+                            .foregroundColor(Theme.darkBackground)
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 56)
+                            .background(Theme.neonGreen)
+                            .cornerRadius(16)
+                    }
+
+                    Button {
+                        showSignUp = true
+                    } label: {
+                        Text("회원가입")
+                            .font(.headline)
+                            .fontWeight(.semibold)
+                            .foregroundColor(Theme.neonGreen)
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 56)
+                            .background(Color.clear)
+                            .cornerRadius(16)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 16)
+                                    .stroke(Theme.neonGreen, lineWidth: 2)
+                            )
+                    }
+                }
+                .padding(.horizontal, 32)
             }
-            .padding(.horizontal, 32)
-
-            Spacer()
+            .padding(.top, 40)
+            .padding(.bottom, 32)
         }
+    }
+
+    private func sampleFeedbackCard(sample: CoachingSample) -> some View {
+        VStack(alignment: .leading, spacing: 12) {
+            HStack {
+                typeBadge(for: sample.type)
+                Spacer()
+            }
+
+            Text(sample.content)
+                .font(.body)
+                .foregroundColor(Theme.textPrimary)
+                .multilineTextAlignment(.leading)
+                .fixedSize(horizontal: false, vertical: true)
+
+            Text("※ 예시 피드백 (실제 데이터 기반으로 매번 다름)")
+                .font(.caption)
+                .foregroundColor(Theme.textSecondary)
+        }
+        .padding(16)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(Theme.cardBackground)
+        .cornerRadius(16)
     }
 
     private var coachStyleLabel: String {
