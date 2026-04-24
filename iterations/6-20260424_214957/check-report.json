@@ -1,0 +1,42 @@
+{
+  "iter_id": "6-20260424_214957",
+  "status": "pass",
+  "task": {
+    "dir": "tasks/5-rep-autosave",
+    "name": "rep-autosave",
+    "overall_status": "completed"
+  },
+  "phases": [
+    {
+      "phase": 0,
+      "name": "docs",
+      "status": "completed",
+      "duration_sec": 428,
+      "notes": "ADR-009 Update 블록 + spec.md §2.6/§3.1/§5 + user-intervention.md 크래시 복구 QA 절차 추가"
+    },
+    {
+      "phase": 1,
+      "name": "autosave-impl",
+      "status": "completed",
+      "duration_sec": 244,
+      "notes": "TrackingViewModel persist 시점 이동 + persistRepSnapshot + RecordsView 0rep 필터, BUILD SUCCEEDED 확인"
+    }
+  ],
+  "issues": [],
+  "conclusion": "rep-autosave 2 phase 전부 completed, 빌드 성공. 직전 run에서 해소된 조도/거리 pain은 제거됐으나 최종 판정(실패/drop/conf 55)은 동일, 앱스토어·정량수치·스쿼트 전용 등 구조적 pain은 이번 스프린트 scope 밖.",
+  "carry_over": [
+    "앱스토어 신뢰 신호 공백 (TestFlight·스크린샷·초기 후기)",
+    "rep 카운트 정량 정확도 수치 공개",
+    "비로그인→로그인 기록 미이관(ADR-013) 재검토",
+    "스쿼트 전용 포지셔닝 대 홈트 앱 기대치 간극",
+    "온보딩 스킵/단축 옵션 + 비로그인 동적 코칭 샘플",
+    "rep-autosave 효과는 차기 sim에서 검증 필요 (이번 sim은 빌드 전에 실행됨)"
+  ],
+  "progress": {
+    "previous_iter_id": "5-20260424_210420",
+    "previous_run_id": "home-workout-newbie-20s_20260424_210609",
+    "current_run_id": "home-workout-newbie-20s_20260424_215228",
+    "signal": "improved",
+    "summary": "iter 5의 diagnostic-hint 빌드가 직전 run에서 제기된 '실패 가이드 UI 얕음 / 조도·거리 민감도' pain을 이번 run 개선 포인트 목록에서 제거. 다만 keyman 최종 판정(실패/drop/confidence 55)은 동일하고 앱스토어·정량 수치·스쿼트 전용·ADR-013 등 구조적 pain은 남음. 이번 iter의 rep-autosave 효과는 차기 sim에서 검증될 예정."
+  }
+}
