@@ -1,0 +1,39 @@
+{
+  "iter_id": "8-20260424_234219",
+  "status": "pass",
+  "task": {
+    "dir": "tasks/7-camera-permission-recovery",
+    "name": "camera-permission-recovery",
+    "overall_status": "completed"
+  },
+  "phases": [
+    {
+      "phase": 0,
+      "name": "docs",
+      "status": "completed",
+      "duration_sec": 396,
+      "notes": "ADR-019 신설 + spec.md §2.8 + testing.md CameraPermissionResolver 불릿. AC 전 항목 통과."
+    },
+    {
+      "phase": 1,
+      "name": "permission-flow-impl",
+      "status": "completed",
+      "duration_sec": 271,
+      "notes": "CameraPermissionResolver.swift 신규 + TrackingView 3분기 + HomeView 배지 + project.yml NSCameraUsageDescription + XCTest 4 케이스. BUILD/TEST SUCCEEDED (6 passed)."
+    }
+  ],
+  "issues": [],
+  "conclusion": "task 7 (camera-permission-recovery) 2 phase 전부 completed, XCTest 6건 pass, CTO 조건 5종 충족. iter 7 대비 confidence 45→55, execution_risk 중간-높음→낮음으로 호전.",
+  "carry_over": [
+    "차기 iter 시뮬에서 keyman 발화에 '카메라 권한 거부 복구 플로우 없음' 언급이 사라지는지 확인 (iter 8 회고 조건)",
+    "iter 8 report에 새로 등장한 pain #7 '프라이버시/온디바이스 설계가 신뢰 신호로 환산되지 않음' 은 별건 티켓 후보",
+    "잔존 최상위 pain: 외부 신뢰 신호 부재(별점·리뷰·스크린샷), rep 카운트 정량 정확도, 스쿼트 전용 포지셔닝, 비로그인→로그인 기록 미이관"
+  ],
+  "progress": {
+    "previous_iter_id": "7-20260424_224239",
+    "previous_run_id": "home-workout-newbie-20s_20260424_224420",
+    "current_run_id": "home-workout-newbie-20s_20260424_234401",
+    "signal": "improved",
+    "summary": "keyman confidence 45→55 상승, execution_risk 중간-높음→낮음으로 호전. iter 7에서 지적된 '온보딩 길이 vs 1분 첫 카운트 모순', '환경 조건 민감도' pain은 iter 8 report에서 사라졌고, 'AI 코칭 하드코딩' 은 '개인화됨' 으로 부분 완화. 단, final_verdict는 여전히 drop이며 이번 iter 8 build가 해결한 '카메라 권한 거부 복구'는 이번 run(build 이전) 시점 시뮬에서는 아직 pain으로 남아있어 차기 run에서 소거 여부 재측정 필요."
+  }
+}
