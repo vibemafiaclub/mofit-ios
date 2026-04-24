@@ -5,7 +5,16 @@
   "totalPhases": 2,
   "created_at": "2026-04-24T15:50:33+0900",
   "phases": [
-    { "phase": 0, "name": "docs", "status": "pending" },
-    { "phase": 1, "name": "picker-ui", "status": "pending" }
+    {
+      "phase": 0,
+      "name": "docs",
+      "status": "completed",
+      "started_at": "2026-04-24T15:53:04+0900"
+    },
+    {
+      "phase": 1,
+      "name": "picker-ui",
+      "status": "pending"
+    }
   ]
 }
