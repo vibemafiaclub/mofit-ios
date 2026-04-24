@@ -29,6 +29,12 @@ struct TrackingView: View {
                     jointOverlay
                 }
 
+                if let hint = viewModel.diagnosticHint {
+                    hintBanner(hint: hint)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                        .padding(.top, 120)
+                }
+
                 closeButton
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
                     .padding(.top, 60)
@@ -197,6 +203,24 @@ struct TrackingView: View {
                 .background(Color.red)
                 .clipShape(Circle())
         }
+    }
+
+    private func hintBanner(hint: DiagnosticHint) -> some View {
+        HStack(spacing: 10) {
+            Image(systemName: hint.iconName)
+                .font(.subheadline)
+                .foregroundColor(.white)
+            Text(hint.message)
+                .font(.subheadline)
+                .foregroundColor(.white)
+                .multilineTextAlignment(.leading)
+                .lineLimit(2)
+        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 10)
+        .background(Color.black.opacity(0.6))
+        .cornerRadius(12)
+        .padding(.horizontal, 24)
     }
 
     private func formatTime(_ seconds: Int) -> String {

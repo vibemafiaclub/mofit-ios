@@ -15,7 +15,9 @@
     {
       "phase": 1,
       "name": "hint-impl",
-      "status": "pending"
+      "status": "completed",
+      "started_at": "2026-04-24T21:42:37+0900",
+      "completed_at": "2026-04-24T22:10:00+0900"
     }
   ]
 }
