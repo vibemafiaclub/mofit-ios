@@ -1,0 +1,41 @@
+{
+  "iter_id": "1-20260424_153124",
+  "status": "pass",
+  "task": {
+    "dir": "tasks/0-exercise-coming-soon",
+    "name": "exercise-coming-soon",
+    "overall_status": "completed"
+  },
+  "phases": [
+    {
+      "phase": 0,
+      "name": "docs",
+      "status": "completed",
+      "duration_sec": 123,
+      "notes": "AC 5개 전부 PASS (런지/플랭크 잔존 0건, ADR-016 신규 추가, ADR-008 원문 보존, prd/spec 종목 정합화, project.yml 변경 0건)"
+    },
+    {
+      "phase": 1,
+      "name": "picker-ui",
+      "status": "completed",
+      "duration_sec": 123,
+      "notes": "ExercisePickerView.swift 1개 파일만 수정. opacity 0.4 + '준비중' 배지 + locked tap 시 1.5초 토스트 '현재는 스쿼트만 지원합니다' + 햅틱. tap 차단 안 함. xcodebuild BUILD SUCCEEDED."
+    }
+  ],
+  "issues": [],
+  "conclusion": "task 정상 완료. 2개 phase 모두 completed, 빌드 성공, CTO 조건부 5개 조건 전부 반영 (tap 차단 안 함, 미래 약속 문구 없음, ADR-008 보존, ADR-016 신규, analytics 제외, 문서 드리프트 정리).",
+  "carry_over": [
+    "rep 카운트 정확도 수치 실증 (예: 스쿼트 100회 연속 오차율) — report.md 개선 포인트 #2",
+    "사회적 증거 확보 (베타 테스터 후기 3~5건, 데모 영상) — report.md 개선 포인트 #3",
+    "AI 코칭 차별성 강화 (7일 데이터 기반 개인화 스크린샷, 첫날 특화 프롬프트) — report.md 개선 포인트 #4",
+    "Analytics 이벤트(`exercise_locked_cta_tapped`) — Mixpanel SDK 도입 별도 티켓으로 분리된 상태",
+    "데이터 휘발성 대응 (iCloud 백업 또는 CSV/JSON export) — report.md 개선 포인트 #6"
+  ],
+  "progress": {
+    "previous_iter_id": null,
+    "previous_run_id": null,
+    "current_run_id": "home-workout-newbie-20s_20260424_153242",
+    "signal": "no_prior_run",
+    "summary": "첫 iteration이므로 직전 run과의 비교는 불가. 이번 run은 keyman drop (confidence 62)이며 1순위 pain '스쿼트 외 운동의 가짜 판정 자백'을 이번 구현이 정조준해 해소. 잔존 pain은 carry_over 참조."
+  }
+}
