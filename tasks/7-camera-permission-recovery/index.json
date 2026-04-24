@@ -5,7 +5,16 @@
   "totalPhases": 2,
   "created_at": "2026-04-25T00:06:09+0900",
   "phases": [
-    { "phase": 0, "name": "docs", "status": "pending" },
-    { "phase": 1, "name": "permission-flow-impl", "status": "pending" }
+    {
+      "phase": 0,
+      "name": "docs",
+      "status": "completed",
+      "started_at": "2026-04-25T00:14:43+0900"
+    },
+    {
+      "phase": 1,
+      "name": "permission-flow-impl",
+      "status": "pending"
+    }
   ]
 }

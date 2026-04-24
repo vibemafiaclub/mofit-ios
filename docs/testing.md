@@ -15,7 +15,9 @@
 `MofitTests` 타겟은 **iter 7(task 6-coaching-generator) 에서 신설**. 이전 task 0~5 의 "MofitTests 타겟 신설 금지" 선례는 **명시적으로 폐기**한다 (iter 7 CTO 조건 1: "실기기 QA 필수화 금지 + XCTest 2케이스 CI 통과 조건").
 
 - **범위**: Foundation-only pure struct 의 회귀 방지용. `@Model` / SwiftData / UIKit / AVFoundation / Vision / 네트워크 의존 코드는 여전히 테스트 대상 아님 (mock 재작성이 구현 중복).
-- **현재 유일 대상**: `CoachingSampleGenerator` (Foundation-only, 입력 결정론적). 2 케이스 — (a) 빈 세션 + 프로필 인터폴레이션 포함 확인, (b) rep 수 인터폴레이션 포함 확인.
+- **현재 대상**:
+  - `CoachingSampleGenerator` (Foundation-only, 입력 결정론적). 2 케이스 — (a) 빈 세션 + 프로필 인터폴레이션 포함 확인, (b) rep 수 인터폴레이션 포함 확인.
+  - `CameraPermissionResolver` (Foundation-only, `AVAuthorizationStatus` enum 입력 결정론적 — AVFoundation 은 SDK 내장이라 SPM 추가 없음, runtime API 호출 0). 4 케이스 — authorized → ready / denied → showSettingsFallback / restricted → showSettingsFallback / notDetermined → requestInline.
 - **파일 위치**: `MofitTests/<TypeName>Tests.swift` 1파일 1타입. 접근은 `@testable import Mofit` 로 internal 심볼 사용 (public 노출 금지).
 - **CI 실행**: `xcodebuild -scheme Mofit test -destination "platform=iOS Simulator,name=<iPhone ...>"`. destination 은 `xcrun simctl list devices available` 결과에서 동적으로 선택하거나 `iPhone 16` 폴백.
 - **외부 의존 금지**: Nimble / Quick / Sourcery / Mockingbird 등 테스트 보조 SPM 도입 금지. XCTest 내장만 사용 (ADR-015 외부 의존성 최소화 원칙 유지).

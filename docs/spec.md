@@ -123,6 +123,35 @@ AVCaptureSession (전면)
 - **로그인 유저 경로 불변**: `CoachingView.loggedInContent` 와 `POST /coaching/request` 서버 프록시(ADR-012) 경로는 이번 범위와 무관. generator 는 호출되지 않는다.
 - **테스트**: `CoachingSampleGenerator` 는 Foundation-only pure struct 로 추출. iter 7 CTO 조건 1 에 따라 `MofitTests/CoachingSampleGeneratorTests.swift` 2 케이스(프로필 인터폴레이션 포함 / rep 숫자 포함) 가 CI 통과 조건. 실기기 QA 는 **없음** (자동 검증으로 완결).
 
+### 2.8 카메라 권한 분기
+
+`TrackingView` 진입 시 `AVCaptureDevice.authorizationStatus(for: .video)` 를 3분기한다 (ADR-019).
+
+- **판정 매핑** (`CameraPermissionResolver.decide(status:) -> CameraPermissionDecision`)
+  - `.authorized` → `.ready` (기존 트래킹 뷰 + `viewModel.startSession(...)` 호출)
+  - `.notDetermined` → `.requestInline` (`AVCaptureDevice.requestAccess(for: .video)` 인라인 요청 + completion 에서 decision 재계산)
+  - `.denied` / `.restricted` → `.showSettingsFallback` (풀스크린 폴백 카드)
+  - `@unknown default` → `.showSettingsFallback` (fail-closed, Apple SDK 향후 enum 추가 방어)
+- **풀스크린 폴백 카드 카피 (고정)**
+  - 타이틀: "카메라 권한이 필요해요"
+  - 서브: "Mofit은 iPhone 카메라로 스쿼트 자세·횟수를 분석합니다. 영상은 저장/전송되지 않고 온디바이스에서 즉시 폐기됩니다."
+  - Primary CTA: "설정에서 권한 켜기" → `UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)`
+  - Secondary CTA: "홈으로 돌아가기" → `dismiss()` (기존 closeButton 과 동일 경로)
+- **재조회 hook**
+  - `.onAppear` 에서 decision 초기 계산.
+  - `.onChange(of: scenePhase)` — `.active` 전이 시 재계산 (사용자가 설정 앱에서 권한 켜고 돌아오면 자동으로 `.ready` 로 진입).
+  - `AVCaptureDevice.requestAccess(for: .video)` completion 에서도 `@MainActor` 컨텍스트로 decision 재계산 (`.notDetermined` → `.authorized` 전이는 scenePhase 가 안 바뀌므로 completion hook 이 유일 경로).
+- **startSession 가드**
+  - `viewModel.startSession(modelContext:isLoggedIn:)` 는 `decision == .ready` 브랜치 `.onAppear` 안에서만 호출. `.showSettingsFallback` / `.requestInline` 상태에서는 호출하지 않음 → AVCaptureSession.startRunning() 미호출 → 빈 검은 preview 회피.
+  - `@StateObject TrackingViewModel` 는 View init 시 생성되므로 `CameraManager.init()` 의 background configureSession 는 돌지만, capture 시작이 가드되어 실제 프레임 발생 0.
+- **HomeView 배지 규칙**
+  - "스쿼트 시작" 버튼 아래에 `.denied` / `.restricted` 일 때만 "카메라 권한 필요" 배지 노출.
+  - `.notDetermined` / `.authorized` 에서는 **배지 비노출** (CTO 조건 2 — `.notDetermined` 재트리거 방지).
+  - `HomeView` 도 `.onAppear` + `.onChange(of: scenePhase)` 에서 `AVCaptureDevice.authorizationStatus(for: .video)` 재조회 → `@State var cameraStatus` 갱신.
+- **프라이버시 카피 일관성**: `project.yml` `INFOPLIST_KEY_NSCameraUsageDescription` 을 "Mofit은 iPhone 카메라로 스쿼트 자세·횟수를 분석합니다. 영상은 저장/전송되지 않고 온디바이스에서 즉시 폐기됩니다." 로 갱신해 system prompt ↔ 폴백 카드 ↔ prd §4 프라이버시 섹션 3곳 문구 동기화. 사실 정합: `grep -rn 'sampleBuffer|CVPixelBuffer|CMSampleBuffer' Mofit/` 는 `Camera/CameraManager.swift`, `ViewModels/TrackingViewModel.swift`, `Services/PoseDetectionService.swift`, `Services/HandDetectionService.swift` 4-hit 전부 온디바이스 Vision 경로로만 흐름 (URLSession 호출부와 교차 0).
+- **추상화 금지 원칙**: `PermissionService` / `CameraPermissionManager` / `NotificationCenter.default.addObserver(UIApplication.didBecomeActiveNotification)` 등 신규 싱글톤/추상화 금지(CTO 조건 4). 단일 뷰 `@State` + SwiftUI environment(`@Environment(\.scenePhase)`, `@Environment(\.dismiss)`) 로만 처리.
+- **테스트**: `CameraPermissionResolver` 를 Foundation-only pure struct 로 추출. `MofitTests/CameraPermissionResolverTests.swift` 4 케이스(authorized/denied/restricted/notDetermined) 가 CI 통과 조건. 실기기 QA 없음(CTO 조건 5, 자동 검증 완결).
+
 ---
 
 ## 3. 데이터 모델
