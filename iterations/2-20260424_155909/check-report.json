@@ -1,0 +1,39 @@
+{
+  "iter_id": "2-20260424_155909",
+  "status": "pass",
+  "task": {
+    "dir": "tasks/1-coaching-samples",
+    "name": "coaching-samples",
+    "overall_status": "completed"
+  },
+  "phases": [
+    {
+      "phase": 0,
+      "name": "docs",
+      "status": "completed",
+      "duration_sec": 44,
+      "notes": "docs/spec.md L37 AuthGateView 설명에 샘플 피드백 카드 2장 노출 문구 추가"
+    },
+    {
+      "phase": 1,
+      "name": "samples-ui",
+      "status": "completed",
+      "duration_sec": 199,
+      "notes": "CoachingSamples.swift 신규, CoachingView.notLoggedInContent를 ScrollView로 전환하여 샘플 카드 2종 + 고지 문구 삽입, QA 체크리스트 생성"
+    }
+  ],
+  "issues": [],
+  "conclusion": "plan-and-build 2개 phase 모두 completed, AI 코칭 샘플 카드 2종 + '※ 예시 피드백' 고지 노출 구현 완료.",
+  "carry_over": [
+    "iter 2 시뮬은 구현 전 value proposition 기반이므로 샘플 카드 실장 효과는 다음 iteration 시뮬에서 재검증 필요",
+    "여전히 미해소된 pain: rep 카운트 정확도 정량 수치, UX probe/UI 스크린샷, 손바닥 인식 실패 폴백, 앱스토어 출시 전 신뢰 신호 대체재",
+    "CTO 조건부 #2(PR description에 샘플 카피 전문 포함)는 PR 생성 시점 수동 체크 필요 — 현재 리뷰 단계 미진입"
+  ],
+  "progress": {
+    "previous_iter_id": "1-20260424_153124",
+    "previous_run_id": "home-workout-newbie-20s_20260424_153242",
+    "current_run_id": "home-workout-newbie-20s_20260424_160033",
+    "signal": "improved",
+    "summary": "직전 run의 1순위 pain(\"스쿼트 외 운동 가짜 판정 = 즉시 삭제 경로\")이 이번 run에서는 완화되어 \"로드맵 시점 명시 필요\" 수준으로 약화됨 — iter 1의 '준비중' 표기 + 문서 정합 작업이 효과를 발휘. 다만 keyman decision/confidence는 drop/62로 동일하고, AI 코칭 샘플 pain은 이번 run에도 여전히 등장(현 iteration 구현으로 다음 run에서 해소 기대). 새 pain으로 UX probe/스크린샷 부재, 손바닥 인식 폴백 불명확이 상향됨."
+  }
+}
