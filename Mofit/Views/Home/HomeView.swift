@@ -7,20 +7,9 @@ struct HomeView: View {
     @Query private var profiles: [UserProfile]
     @Query private var sessions: [WorkoutSession]
 
-    @State private var selectedExerciseName = "스쿼트"
     @State private var serverSessions: [ServerSession] = []
     @State private var isLoadingServerData = false
 
-    private static let exerciseNameToType: [String: String] = [
-        "스쿼트": "squat",
-        "푸쉬업": "pushup",
-        "싯업": "situp",
-    ]
-
-    private var selectedExerciseType: String {
-        Self.exerciseNameToType[selectedExerciseName] ?? "squat"
-    }
-    @State private var showExercisePicker = false
     @State private var showProfileEdit = false
     @State private var showTracking = false
     @State private var showConfetti = false
@@ -81,11 +70,9 @@ struct HomeView: View {
 
                 ScrollView {
                     VStack(spacing: 24) {
-                        exerciseSelector
-                            .padding(.top, 32)
-
                         startButton
                             .padding(.horizontal)
+                            .padding(.top, 32)
 
                         todaySummaryCard
                             .padding(.horizontal)
@@ -108,17 +95,12 @@ struct HomeView: View {
                     }
             }
         }
-        .sheet(isPresented: $showExercisePicker) {
-            ExercisePickerView(selectedExerciseName: $selectedExerciseName)
-                .presentationDetents([.medium])
-                .presentationDragIndicator(.visible)
-        }
         .fullScreenCover(isPresented: $showProfileEdit) {
             ProfileEditView()
                 .environmentObject(authManager)
         }
         .fullScreenCover(isPresented: $showTracking) {
-            TrackingView(exerciseType: selectedExerciseType, showConfetti: $showConfetti)
+            TrackingView(exerciseType: "squat", showConfetti: $showConfetti)
                 .environmentObject(authManager)
         }
         .task {
@@ -178,32 +160,11 @@ struct HomeView: View {
         }
     }
 
-    private var exerciseSelector: some View {
-        Button {
-            showExercisePicker = true
-        } label: {
-            HStack {
-                Text(selectedExerciseName)
-                    .font(.title2)
-                    .fontWeight(.semibold)
-                    .foregroundColor(Theme.textPrimary)
-
-                Image(systemName: "chevron.down")
-                    .font(.subheadline)
-                    .foregroundColor(Theme.textSecondary)
-            }
-            .padding(.horizontal, 24)
-            .padding(.vertical, 16)
-            .background(Theme.cardBackground)
-            .cornerRadius(16)
-        }
-    }
-
     private var startButton: some View {
         Button {
             showTracking = true
         } label: {
-            Text("운동 시작")
+            Text("스쿼트 시작")
                 .font(.title2)
                 .fontWeight(.bold)
                 .foregroundColor(Theme.darkBackground)
@@ -242,7 +203,7 @@ struct HomeView: View {
                 HStack(spacing: 0) {
                     summaryItem(value: "\(todayTotalSets)", label: "세트")
                     Spacer()
-                    summaryItem(value: "\(todayTotalReps)", label: "rep")
+                    summaryItem(value: "\(todayTotalReps)", label: "스쿼트")
                     Spacer()
                     summaryItem(value: formatDuration(todayTotalDuration), label: "시간")
                 }

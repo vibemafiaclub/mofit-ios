@@ -21,7 +21,6 @@
 		3456C1E6B1FACFC4828904F6 /* CameraPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7265E97D9767068D4780D4A1 /* CameraPreviewView.swift */; };
 		40F6F38E20384AB7EE0D3B5E /* CoachingSamples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D88A93A41C8893B7AD6C6B8 /* CoachingSamples.swift */; };
 		42706E3EA4FD131DFF90A0B5 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FEB08F60AF059876333C077 /* SwiftUI.framework */; };
-		452BA3B22960942A08B1C71F /* ExercisePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE0CBECA32BA59FFC2EDCB9 /* ExercisePickerView.swift */; };
 		62E6A2F7189D49E9C730510F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B469CE7D4368EF6D89E602 /* ContentView.swift */; };
 		6FD68579976E3FDF0FE0CC93 /* HandDetectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA180531E041D0064A4E1BD6 /* HandDetectionService.swift */; };
 		7BCFF0611D7245687E155CB3 /* CoachingFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546B0402F236C3DBE3C24E27 /* CoachingFeedback.swift */; };
@@ -50,7 +49,6 @@
 		01697F3A0BA0AD6E17FC6B10 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		01CAF0F33617545D6CFC1B30 /* SwiftData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftData.framework; path = System/Library/Frameworks/SwiftData.framework; sourceTree = SDKROOT; };
 		0575C1AFEE200A1F9A7FF95F /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
-		0AE0CBECA32BA59FFC2EDCB9 /* ExercisePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExercisePickerView.swift; sourceTree = "<group>"; };
 		1158905F483172755B0524FC /* ProfileEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditView.swift; sourceTree = "<group>"; };
 		214EA30ADD81F450DEA7E3C9 /* MofitApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MofitApp.swift; sourceTree = "<group>"; };
 		22A6CD322D959982326B5A6C /* SitUpCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SitUpCounter.swift; sourceTree = "<group>"; };
@@ -285,7 +283,6 @@
 		E1EA61E0890C370F0D3F0308 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				0AE0CBECA32BA59FFC2EDCB9 /* ExercisePickerView.swift */,
 				7FD0106B1C899177F7A304F5 /* HomeView.swift */,
 			);
 			path = Home;
@@ -359,7 +356,6 @@
 				8B684CD65145369C7C2FFCB8 /* CoachingViewModel.swift in Sources */,
 				62E6A2F7189D49E9C730510F /* ContentView.swift in Sources */,
 				E4B3D2AB0EE6B770327CB1E6 /* ExerciseCounter.swift in Sources */,
-				452BA3B22960942A08B1C71F /* ExercisePickerView.swift in Sources */,
 				6FD68579976E3FDF0FE0CC93 /* HandDetectionService.swift in Sources */,
 				EFA5A622083309D15229B947 /* HomeView.swift in Sources */,
 				7C657ECD7212DA3CD26DF2EC /* KeychainService.swift in Sources */,
