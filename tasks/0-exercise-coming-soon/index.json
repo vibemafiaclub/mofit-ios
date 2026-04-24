@@ -1,0 +1,11 @@
+{
+  "project": "Mofit",
+  "task": "exercise-coming-soon",
+  "prompt": "iterations/1-20260424_153124/requirement.md — 스쿼트 외 운동 버튼(푸쉬업/싯업)에 '준비중' 표시를 붙여, 기대 불일치로 인한 3일 내 삭제 경로를 차단. 스쿼트만 active, 푸쉬업/싯업은 opacity 0.4 + '준비중' 배지 + tap 시 토스트 '현재는 스쿼트만 지원합니다' (tap 차단은 하지 않음, 미래 약속 문구 금지). docs/prd.md · docs/spec.md 운동 종목을 실코드(스쿼트/푸쉬업/싯업) 기준으로 정합화, docs/adr.md에 ADR-016 신규 추가(ADR-008 수정 금지). xcodegen + xcodebuild 로 빌드 검증. SwiftData 스키마/서버 API 변경 0.",
+  "totalPhases": 2,
+  "created_at": "2026-04-24T15:50:33+0900",
+  "phases": [
+    { "phase": 0, "name": "docs", "status": "pending" },
+    { "phase": 1, "name": "picker-ui", "status": "pending" }
+  ]
+}

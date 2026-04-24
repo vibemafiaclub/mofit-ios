@@ -1,0 +1,11 @@
+{
+  "tasks": [
+    {
+      "id": 0,
+      "name": "exercise-coming-soon",
+      "dir": "0-exercise-coming-soon",
+      "status": "pending",
+      "created_at": "2026-04-24T15:50:33+0900"
+    }
+  ]
+}
