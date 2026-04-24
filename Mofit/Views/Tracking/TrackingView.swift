@@ -49,7 +49,7 @@ struct TrackingView: View {
             .onAppear {
                 viewModel.viewSize = geometry.size
                 UIApplication.shared.isIdleTimerDisabled = true
-                viewModel.startSession()
+                viewModel.startSession(modelContext: modelContext, isLoggedIn: authManager.isLoggedIn)
             }
             .onDisappear {
                 UIApplication.shared.isIdleTimerDisabled = false

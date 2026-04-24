@@ -46,6 +46,10 @@ final class TrackingViewModel: ObservableObject {
     private let poseDetectionService = PoseDetectionService()
     private let handDetectionService = HandDetectionService()
     private var evaluator = DiagnosticHintEvaluator()
+    private var currentSession: WorkoutSession?
+    private var storedModelContext: ModelContext?
+    private var storedIsLoggedIn: Bool = false
+    private var lastSavedReps: Int = 0
 
     let exerciseType: String
     private let squatCounter: SquatCounter?
@@ -90,17 +94,26 @@ final class TrackingViewModel: ObservableObject {
         if let counter = squatCounter {
             counter.$currentReps
                 .receive(on: DispatchQueue.main)
-                .sink { [weak self] reps in self?.currentReps = reps }
+                .sink { [weak self] reps in
+                    self?.currentReps = reps
+                    self?.persistRepSnapshot()
+                }
                 .store(in: &cancellables)
         } else if let counter = pushUpCounter {
             counter.$currentReps
                 .receive(on: DispatchQueue.main)
-                .sink { [weak self] reps in self?.currentReps = reps }
+                .sink { [weak self] reps in
+                    self?.currentReps = reps
+                    self?.persistRepSnapshot()
+                }
                 .store(in: &cancellables)
         } else if let counter = sitUpCounter {
             counter.$currentReps
                 .receive(on: DispatchQueue.main)
-                .sink { [weak self] reps in self?.currentReps = reps }
+                .sink { [weak self] reps in
+                    self?.currentReps = reps
+                    self?.persistRepSnapshot()
+                }
                 .store(in: &cancellables)
         }
     }
@@ -109,7 +122,7 @@ final class TrackingViewModel: ObservableObject {
         cameraManager.captureSession
     }
 
-    func startSession() {
+    func startSession(modelContext: ModelContext, isLoggedIn: Bool) {
         state = .idle
         currentSet = 1
         currentReps = 0
@@ -122,6 +135,10 @@ final class TrackingViewModel: ObservableObject {
         resetCounter()
         diagnosticHint = nil
         evaluator.reset()
+        storedModelContext = modelContext
+        storedIsLoggedIn = isLoggedIn
+        currentSession = nil
+        lastSavedReps = 0
 
         cameraManager.onFrameCaptured = { [weak self] sampleBuffer in
             Task { @MainActor [weak self] in
@@ -168,15 +185,20 @@ final class TrackingViewModel: ObservableObject {
                 }
             }
         } else {
-            let session = WorkoutSession(
-                exerciseType: exerciseType,
-                startedAt: startedAt,
-                endedAt: endedAt,
-                totalDuration: elapsedTime,
-                repCounts: repCounts
-            )
-            modelContext.insert(session)
+            if let session = currentSession {
+                session.repCounts = repCounts
+                session.endedAt = endedAt
+                session.totalDuration = elapsedTime
+                do {
+                    try modelContext.save()
+                } catch {
+                    print("autosave failed: \(error)")
+                }
+            }
         }
+        currentSession = nil
+        lastSavedReps = 0
+        storedModelContext = nil
     }
 
     private func processFrame(_ sampleBuffer: CMSampleBuffer) {
@@ -254,6 +276,24 @@ final class TrackingViewModel: ObservableObject {
             hasStartedElapsedTimer = true
             sessionStartTime = Date()
             startElapsedTimer()
+
+            if !storedIsLoggedIn && currentSession == nil, let ctx = storedModelContext {
+                let startedAt = sessionStartTime ?? Date()
+                let session = WorkoutSession(
+                    exerciseType: exerciseType,
+                    startedAt: startedAt,
+                    endedAt: startedAt,
+                    totalDuration: 0,
+                    repCounts: []
+                )
+                ctx.insert(session)
+                do {
+                    try ctx.save()
+                } catch {
+                    print("autosave failed: \(error)")
+                }
+                currentSession = session
+            }
         }
 
         countdownTimer?.invalidate()
@@ -302,6 +342,18 @@ final class TrackingViewModel: ObservableObject {
         state = .setComplete
         currentSet += 1
 
+        if !storedIsLoggedIn, let ctx = storedModelContext, let session = currentSession {
+            session.repCounts = repCounts
+            session.endedAt = Date()
+            session.totalDuration = elapsedTime
+            do {
+                try ctx.save()
+            } catch {
+                print("autosave failed: \(error)")
+            }
+            lastSavedReps = currentReps
+        }
+
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
             self?.startCountdown()
         }
@@ -326,6 +378,24 @@ final class TrackingViewModel: ObservableObject {
                 isFrontCamera: true
             )
         }
+    }
+
+    private func persistRepSnapshot() {
+        guard !storedIsLoggedIn,
+              let ctx = storedModelContext,
+              let session = currentSession else { return }
+        guard currentReps != lastSavedReps else { return }
+
+        let snapshot = repCounts + (currentReps > 0 ? [currentReps] : [])
+        session.repCounts = snapshot
+        session.endedAt = Date()
+        session.totalDuration = elapsedTime
+        do {
+            try ctx.save()
+        } catch {
+            print("autosave failed: \(error)")
+        }
+        lastSavedReps = currentReps
     }
 }
 

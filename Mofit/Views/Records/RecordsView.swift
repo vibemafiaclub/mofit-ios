@@ -15,7 +15,7 @@ struct RecordsView: View {
 
     private var filteredSessions: [WorkoutSession] {
         let calendar = Calendar.current
-        return sessions.filter { calendar.isDate($0.startedAt, inSameDayAs: selectedDate) }
+        return sessions.filter { calendar.isDate($0.startedAt, inSameDayAs: selectedDate) && $0.totalReps > 0 }
     }
 
     private var filteredServerSessions: [ServerSession] {
